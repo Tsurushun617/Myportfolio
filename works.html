@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Works 制作物｜Shun Tsuruoka Portfolio</title>
+  <meta name="description" content="鶴岡駿が手がけたWebサイト・LPの制作実績一覧です。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="index.html" aria-label="トップページへ">
+        <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+        <span class="brand__name">Shun Tsuruoka<small>つるおか しゅん</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開閉する"><span></span></button>
+      <nav class="nav" id="site-nav" aria-label="メインメニュー">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="works.html">Works</a></li>
+          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link" href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <h1>Works</h1>
+        <p>制作物一覧</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="filters" role="group" aria-label="カテゴリで絞り込み">
+          <button class="filter" data-filter="all" aria-pressed="true">すべて</button>
+          <button class="filter" data-filter="website" aria-pressed="false">Webサイト</button>
+          <button class="filter" data-filter="lp" aria-pressed="false">LP</button>
+        </div>
+        <div class="works-grid" data-works-grid>
+          <noscript><p>制作物の一覧表示にはJavaScriptが必要です。</p></noscript>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <a class="brand" href="index.html" aria-label="トップページへ">
+        <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+        <span class="brand__name">Shun Tsuruoka</span>
+      </a>
+      <nav aria-label="フッターメニュー">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="works.html">Works</a></li>
+          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__copy">© 2026 SHUN TSURUOKA</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/works-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

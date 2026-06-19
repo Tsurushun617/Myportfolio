@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shun Tsuruoka Portfolio｜フロントエンドエンジニア 鶴岡 駿</title>
+  <meta name="description" content="フロントエンドエンジニア 鶴岡駿（つるおか しゅん）のポートフォリオサイト。WordPress・Shopifyを中心としたコーディングと、GA4等を用いたWebサイト改善に取り組んでいます。">
+  <meta property="og:title" content="Shun Tsuruoka Portfolio">
+  <meta property="og:description" content="フロントエンドエンジニア 鶴岡駿のポートフォリオサイト">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ========== Header ========== -->
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="index.html" aria-label="トップページへ">
+        <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+        <span class="brand__name">Shun Tsuruoka<small>つるおか しゅん</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開閉する"><span></span></button>
+      <nav class="nav" id="site-nav" aria-label="メインメニュー">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="works.html">Works</a></li>
+          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== Hero ========== -->
+    <section class="hero" aria-label="メインビジュアル">
+      <span class="blob blob--1" aria-hidden="true"></span>
+      <span class="blob blob--2" aria-hidden="true"></span>
+      <span class="blob blob--3" aria-hidden="true"></span>
+      <div class="wrap hero__inner">
+        <p class="hero__eyebrow">
+          <svg class="sprout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+          PORTFOLIO
+        </p>
+        <h1 class="hero__title">Shun <span class="grad">Tsuruoka</span></h1>
+        <p class="hero__role">Frontend Developer / Web Coder</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="works.html">制作物を見る</a>
+          <a class="btn btn--ghost" href="about.html">私について</a>
+        </div>
+      </div>
+      <span class="scroll-cue" aria-hidden="true">SCROLL</span>
+    </section>
+
+    <!-- ========== Works ========== -->
+    <section class="section section--soft" id="works">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Works</span>
+          <span class="ja">制作物</span>
+        </div>
+        <div class="works-grid" data-works-grid data-limit="6">
+          <noscript><p>制作物の一覧表示にはJavaScriptが必要です。<a href="works.html">制作物一覧</a>をご覧ください。</p></noscript>
+        </div>
+        <div class="section-foot reveal">
+          <a class="btn btn--ghost" href="works.html">すべての制作物を見る</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Profile ========== -->
+    <section class="section" id="profile">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">About</span>
+          <span class="ja">私について</span>
+        </div>
+        <div class="profile">
+          <div class="profile__photo reveal" aria-hidden="true"><span>PHOTO</span></div>
+          <div class="reveal">
+            <h3 class="profile__name">鶴岡 駿<small>Shun Tsuruoka</small></h3>
+            <p class="profile__lead">
+              Web制作会社でフロントエンドエンジニアとして、コーポレートサイトやLPのコーディングを担当しています。
+              HTML・CSS / SCSS・JavaScript・WordPress（PHP）・Shopify（Liquid）を用いてデザインカンプを丁寧に再現すること、
+              そしてGA4などの分析をもとにサイト改善を提案することに取り組んでいます。
+              「他のエンジニアが読みやすく、非エンジニアの担当者でも更新しやすいコード」を大切にしています。
+            </p>
+            <div class="skill-groups">
+              <div class="skill-group">
+                <p class="skill-group__label">FRONTEND</p>
+                <div class="tags">
+                  <span class="tag">HTML</span>
+                  <span class="tag">CSS / SCSS</span>
+                  <span class="tag">JavaScript</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <p class="skill-group__label">CMS</p>
+                <div class="tags">
+                  <span class="tag">WordPress</span>
+                  <span class="tag">PHP</span>
+                  <span class="tag">Shopify / Liquid</span>
+                  <span class="tag">ACF</span>
+                  <span class="tag">CPT UI</span>
+                </div>
+              </div>
+              <div class="skill-group">
+                <p class="skill-group__label">ANALYTICS &amp; TOOLS</p>
+                <div class="tags">
+                  <span class="tag">GA4</span>
+                  <span class="tag">Search Console</span>
+                  <span class="tag">GTM</span>
+                  <span class="tag">Microsoft Clarity</span>
+                  <span class="tag">Git / GitHub</span>
+                </div>
+              </div>
+            </div>
+            <p style="margin-top:1.6rem">
+              <a class="btn btn--primary" href="about.html">経歴・価値観をもっと見る</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Contact ========== -->
+    <section class="section section--mint contact" id="contact">
+      <div class="wrap reveal">
+        <div class="section-head" style="margin-bottom:1.2rem">
+          <span class="en">Contact</span>
+          <span class="ja">お問い合わせ</span>
+        </div>
+        <p style="font-family:'Noto Sans JP',sans-serif;color:var(--muted)">下記のメールアドレスまでお気軽にご連絡ください。</p>
+        <!-- ↓ ご自身のメールアドレスに置き換えてください -->
+        <a class="contact__mail" href="mailto:your-email@example.com">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+          your-email@example.com
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <a class="brand" href="index.html" aria-label="トップページへ">
+        <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+        <span class="brand__name">Shun Tsuruoka</span>
+      </a>
+      <nav aria-label="フッターメニュー">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="works.html">Works</a></li>
+          <li><a class="nav__link" href="about.html">About</a></li>
+          <!-- ↓ GitHubのURLに置き換えてください -->
+          <li><a class="nav__link" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__copy">© 2026 SHUN TSURUOKA</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/works-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
