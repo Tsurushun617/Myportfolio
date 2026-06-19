@@ -20,9 +20,9 @@ portfolio/
 
 ## 公開前にやること（プレースホルダの差し替え）
 
-1. **メールアドレス** … `index.html` と `about.html` の `your-email@example.com`（2か所×各ページ＝計4か所）を実際のアドレスに。
+1. ~~**メールアドレス**~~ … 設定済み（`tsurunote@gmail.com`）。
 2. **GitHub URL** … 全ページのフッター `https://github.com/` をご自身のGitHub URLに。
-3. **実績の内容確認** … `assets/js/works-data.js` の `[要確認]` が付いた4件（inadog / azmas-tray / inochiryo / cinematic）のタイトル・説明・担当範囲をご確認・修正ください。
+3. **実績の内容確認** … `assets/js/works-data.js` の `[要確認]` が付いた2件（inochiryo / cinematic）のタイトル・説明・担当範囲をご確認・修正ください。（inadog・吾嬬製作所は反映済み）
 4. **プロフィール写真** … `PHOTO` のプレースホルダ部分。画像を使う場合は `index.html` / `about.html` の `.profile__photo` を `<img src="assets/images/profile.jpg" alt="鶴岡 駿">` に置き換え。
 5. **実績サムネ（任意）** … 各サイトのスクショを `assets/images/works/` に置き、`works-data.js` の各 `thumb` にパスを指定（例: `"assets/images/works/matsuda.jpg"`）。未指定なら自動でプレースホルダ表示。
 
