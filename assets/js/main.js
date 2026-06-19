@@ -99,6 +99,7 @@
           <dl>
             <dt>担当範囲</dt><dd>${esc(w.role)}</dd>
             <dt>使用技術</dt><dd>${w.tech.map(esc).join(" / ")}</dd>
+            ${(w.tracking || []).map((t) => `<dt>${esc(t.name)}</dt><dd>${esc(t.work)}</dd>`).join("")}
           </dl>
           <a class="btn btn--primary" href="${esc(w.url)}" target="_blank" rel="noopener noreferrer">
             サイトを見る ${ICON.external}

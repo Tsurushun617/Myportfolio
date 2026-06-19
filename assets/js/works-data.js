@@ -8,11 +8,18 @@
    - summary     : 一覧カード用の短い説明（1〜2行）
    - description : 詳細ページ用の説明
    - tech        : 使用言語・技術（配列）
+   - tracking    : 計測ツール等（任意）{ name: 項目名, work: 担当内容 } の配列
    - thumb       : サムネ画像パス（assets/images/works/ に置いて指定。空ならプレースホルダ表示）
 
    ※業種・説明・担当範囲は鶴岡さんご自身でご確認のうえ、適宜修正してください。
      アクセス制限で内容を取得できなかったものは [要確認] と記載しています。
    ========================================================= */
+
+const ANALYTICS_SETUP = [
+  { name: "Google Analytics", work: "設置・初期設定" },
+  { name: "Google Tag Manager", work: "設置・初期設定・キーイベント設定" },
+  { name: "Microsoft Clarity", work: "設置・初期設定" }
+];
 
 const WORKS = [
   {
@@ -25,6 +32,7 @@ const WORKS = [
     summary: "墨田区・1956年創業の自動車整備工場。車検から板金塗装、保険、車両販売までワンストップで訴求するコーポレートサイト。",
     description: "墨田区スカイツリー近くの地域密着型整備工場のコーポレートサイト。車検・修理・板金塗装・保険・車両販売という幅広いサービスを、来店前のユーザーが迷わず辿れる導線設計で構成しました。デザインカンプの再現からCMS実装まで一人で担当。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    tracking: ANALYTICS_SETUP,
     thumb: ""
   },
   {
@@ -37,6 +45,7 @@ const WORKS = [
     summary: "紀州備長炭をはじめとする木炭の専門商社サイト。飲食店向けの商品ラインナップと品質のこだわりを発信。",
     description: "紀州備長炭など国産・輸入木炭を扱う専門商社のWebサイト。飲食店（蒲焼・串焼き店など）の業務用ニーズに向けて、炭の種類や特長をわかりやすく整理しました。チームでの共同制作。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    tracking: ANALYTICS_SETUP,
     thumb: ""
   },
   {
@@ -89,14 +98,15 @@ const WORKS = [
   },
   {
     id: "taniguchi-oem",
-    title: "谷口化学 OEMページ",
+    title: "ライオン靴クリーム OEMページ",
     category: "website",
     catLabel: "Webページ",
     role: "一人で制作",
     url: "https://taniguchi-kagaku.com/pages/oem",
-    summary: "化学メーカーのOEM紹介ページ。ShopifyのLiquidテンプレートで実装し、BtoBの問い合わせ導線を設計。",
-    description: "化学メーカーのOEM事業を紹介するページ。Shopify（Liquid）上で、BtoB向けに事業の強みと問い合わせ導線を整理して一人で実装しました。",
+    summary: "ライオン靴クリーム本舗のOEM紹介ページ。ShopifyのLiquidテンプレートで実装し、BtoBの問い合わせ導線を設計。",
+    description: "ライオン靴クリーム本舗のOEM事業を紹介するページ。Shopify（Liquid）上で、BtoB向けに事業の強みと問い合わせ導線を整理して一人で実装しました。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "Shopify", "Liquid"],
+    tracking: ANALYTICS_SETUP,
     thumb: ""
   },
   {
