@@ -317,7 +317,9 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 .profile__photo span { font-weight: 800; opacity: 0.5; font-size: 0.85rem; font-family: "Noto Sans JP", sans-serif; }
 .profile__name { font-size: clamp(1.4rem, 4vw, 1.9rem); }
 .profile__name small { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-top: 4px; letter-spacing: 0.06em; }
-.profile__lead { font-family: "Noto Sans JP", sans-serif; margin: 1rem 0 1.5rem; }
+.profile__lead { font-family: "Noto Sans JP", sans-serif; margin: 1rem 0 1.5rem; max-width: 40em; }
+.timeline__desc,
+.value__desc { max-width: 40em; }
 .profile__lead .inline-link,
 .timeline__title .inline-link {
   color: var(--accent); font-weight: inherit; text-decoration: underline; text-underline-offset: 3px;
