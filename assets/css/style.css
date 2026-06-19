@@ -312,9 +312,11 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 .profile__photo {
   aspect-ratio: 1; border-radius: var(--r-lg); overflow: hidden;
   background: linear-gradient(135deg, var(--mint), var(--pink));
-  display: grid; place-items: center; box-shadow: var(--shadow);
+  box-shadow: var(--shadow);
 }
-.profile__photo span { font-weight: 800; opacity: 0.5; font-size: 0.85rem; font-family: "Noto Sans JP", sans-serif; }
+.profile__photo img {
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top;
+}
 .profile__name { font-size: clamp(1.4rem, 4vw, 1.9rem); }
 .profile__name small { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-top: 4px; letter-spacing: 0.06em; }
 .profile__lead { font-family: "Noto Sans JP", sans-serif; margin: 1rem 0 1.5rem; max-width: 40em; }
@@ -326,6 +328,16 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 }
 .profile__lead .inline-link:hover,
 .timeline__title .inline-link:hover { opacity: 0.85; }
+
+/* デジタル庁デザインシステム準拠の外部リンクアイコン */
+.external-link-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-inline-start: 0.25em;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+}
 
 .skill-groups { display: grid; gap: 1.1rem; margin-top: 0.5rem; }
 .skill-group__label { font-size: 0.78rem; letter-spacing: 0.14em; color: var(--muted); font-weight: 700; margin-bottom: 0.55rem; font-family: "Noto Sans JP", sans-serif; }
