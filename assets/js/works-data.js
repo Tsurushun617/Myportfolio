@@ -69,7 +69,7 @@ const WORKS = [
     url: "https://inadog.com/",
     summary: "中小企業の経営者向けYouTube運用サポートを提供するコーポレートサイト。代表・稲田の実績とサービス内容を訴求。",
     description: "中小企業の経営者向けにYouTube運用の相談・伴走支援を行うinadogのコーポレートサイト。Inc-Tubeなどのサービス紹介、事例・お客様の声、セミナー情報などを整理し、チームの一員として制作に参加しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "HubSpot CMS", "HubL"],
     thumb: "assets/images/works/inadog.jpg"
   },
   {
