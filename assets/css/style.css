@@ -330,7 +330,7 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 @media (max-width: 760px) { .profile { grid-template-columns: 1fr; } }
 .profile__photo {
   aspect-ratio: 3 / 4;
-  block-size: 15rem; /* 240px相当（相対値） */
+  block-size: 20em; /* 240px相当（相対値） */
   inline-size: auto;
   border-radius: var(--r-lg); overflow: hidden;
   box-shadow: var(--shadow);
