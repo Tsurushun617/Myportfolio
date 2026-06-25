@@ -110,6 +110,19 @@ const WORKS = [
     thumb: "assets/images/works/taniguchi-oem.jpg"
   },
   {
+    id: "g-eight",
+    title: "株式会社ジーエイト",
+    category: "website",
+    catLabel: "Webサイト",
+    role: "単独制作",
+    url: "https://g-eight.info/",
+    summary: "東京・池袋を拠点にアスベスト除去・調査と内装解体工事を専門とする株式会社ジーエイトのコーポレートサイト。",
+    description: "アスベスト除去・含有調査・内装解体工事を手がける株式会社ジーエイトのコーポレートサイト。リフォーム前の安全確認を検討する住宅所有者や建設業者に向けて、サービス内容・施工実績・無料相談の導線をわかりやすく整理し、単独で制作しました。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    tracking: ANALYTICS_SETUP,
+    thumb: "assets/images/works/g-eight.jpg"
+  },
+  {
     id: "cinematic",
     title: "Cinematic",
     category: "website",
