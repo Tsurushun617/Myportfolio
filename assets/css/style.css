@@ -329,12 +329,13 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 }
 @media (max-width: 760px) { .profile { grid-template-columns: 1fr; } }
 .profile__photo {
-  aspect-ratio: 1; border-radius: var(--r-lg); overflow: hidden;
+  aspect-ratio: 3 / 4; border-radius: var(--r-lg); overflow: hidden;
   background: linear-gradient(135deg, var(--mint), var(--pink));
   box-shadow: var(--shadow);
 }
 .profile__photo img {
-  display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 15%;
+  display: block; width: 100%; height: 100%;
+  object-fit: contain; object-position: center center;
 }
 .profile__name { font-size: clamp(1.4rem, 4vw, 1.9rem); }
 .profile__name small { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-top: 4px; letter-spacing: 0.06em; }
