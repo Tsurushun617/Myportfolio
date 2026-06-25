@@ -99,8 +99,8 @@ const WORKS = [
   {
     id: "taniguchi-oem",
     title: "ライオン靴クリーム OEMページ",
-    category: "website",
-    catLabel: "Webページ",
+    category: "lp",
+    catLabel: "LP",
     role: "単独制作",
     url: "https://taniguchi-kagaku.com/pages/oem",
     summary: "ライオン靴クリーム本舗のOEM紹介ページ。ShopifyのLiquidテンプレートで実装し、BtoBの問い合わせ導線を設計。",
