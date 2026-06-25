@@ -86,13 +86,13 @@ const WORKS = [
   },
   {
     id: "inochiryo",
-    title: "命寮（inochiryo）LP [要確認]",
+    title: "命涼（inochiryo）LP",
     category: "lp",
     catLabel: "LP",
     role: "単独制作",
     url: "https://i-icf.co.jp/inochiryo/",
-    summary: "サービス紹介のランディングページを単独制作。（※内容はご確認ください）",
-    description: "サービス紹介のランディングページを単独制作。※サービス名・概要は鶴岡さんにてご確認・加筆をお願いします。",
+    summary: "製造工場・建設現場向け熱中症対策ブース「命涼（らく冷えブース）」の商品LP。ブースの特長と問い合わせ導線を単独で設計・制作。",
+    description: "コンフォートフォーム株式会社が開発した熱中症対策ブース「命涼（らく冷えブース）」の紹介ランディングページ。製造工場・建設現場を主なターゲットに、独自素材「エアインフォーム」の特長や「誰でも・どこでも・すぐ設置できる」というコンセプトを訴求する構成を単独で制作しました。",
     tech: ["HTML", "CSS / SCSS", "JavaScript"],
     thumb: "assets/images/works/inochiryo.jpg"
   },
@@ -111,14 +111,14 @@ const WORKS = [
   },
   {
     id: "cinematic",
-    title: "Cinematic [要確認]",
+    title: "Cinematic",
     category: "website",
     catLabel: "Webサイト",
     role: "チーム制作",
     url: "https://www.cinematic.jp/",
-    summary: "コーポレート／サービスサイトをチームで共同制作。（※内容はご確認ください）",
-    description: "Webサイトの制作にチームの一員として参加。※事業内容・概要は鶴岡さんにてご確認・加筆をお願いします。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    summary: "結婚式向け映像制作を専門とする株式会社シネマチックのコーポレートサイト。プロフィールムービーやエンドロールなど多彩なサービスをチームで制作。",
+    description: "結婚式向け映像制作の専門会社・株式会社シネマチックのWebサイト。プロフィールムービー・オープニングムービー・エンドロールなど幅広いサービスを紹介するコーポレートサイトを、チームの一員として制作しました。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "Shopify", "Liquid"],
     thumb: "assets/images/works/cinematic.jpg"
   }
 ];
