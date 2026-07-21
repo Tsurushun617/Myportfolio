@@ -23,17 +23,16 @@ const ANALYTICS_SETUP = [
 
 const WORKS = [
   {
-    id: "matsuda-motors",
-    title: "松田自動車整備工場",
+    id: "sakubuncafe",
+    title: "あおぞら作文教室",
     category: "website",
     catLabel: "Webサイト",
-    role: "単独制作",
-    url: "https://matsuda-motors.com/",
-    summary: "墨田区・1956年創業の自動車整備工場。車検から板金塗装、保険、車両販売までワンストップで訴求するコーポレートサイト。",
-    description: "墨田区スカイツリー近くの地域密着型整備工場のコーポレートサイト。車検・修理・板金塗装・保険・車両販売という幅広いサービスを、来店前のユーザーが迷わず辿れる導線設計で構成しました。デザインカンプの再現からCMS実装まで一人で担当。",
+    role: "チーム制作",
+    url: "https://sakubuncafe.com/",
+    summary: "子どもの「書く力」と自己肯定感を育てる作文教室のサイト。教室の理念とあたたかい世界観を表現。",
+    description: "子ども向け作文教室のコーポレートサイト。「遊びの中に学びがある」という教室の教育理念を、やわらかいトーンのデザインで表現しました。チームでの共同制作。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
-    tracking: ANALYTICS_SETUP,
-    thumb: "assets/images/works/matsuda-motors.jpg"
+    thumb: "assets/images/works/sakubuncafe.jpg"
   },
   {
     id: "bincho",
@@ -49,52 +48,29 @@ const WORKS = [
     thumb: "assets/images/works/bincho.jpg"
   },
   {
-    id: "sakubuncafe",
-    title: "あおぞら作文教室",
+    id: "matsuda-motors",
+    title: "松田自動車整備工場",
     category: "website",
     catLabel: "Webサイト",
-    role: "チーム制作",
-    url: "https://sakubuncafe.com/",
-    summary: "子どもの「書く力」と自己肯定感を育てる作文教室のサイト。教室の理念とあたたかい世界観を表現。",
-    description: "子ども向け作文教室のコーポレートサイト。「遊びの中に学びがある」という教室の教育理念を、やわらかいトーンのデザインで表現しました。チームでの共同制作。",
+    role: "単独制作",
+    url: "https://matsuda-motors.com/",
+    summary: "墨田区・1956年創業の自動車整備工場。車検から板金塗装、保険、車両販売までワンストップで訴求するコーポレートサイト。",
+    description: "墨田区スカイツリー近くの地域密着型整備工場のコーポレートサイト。車検・修理・板金塗装・保険・車両販売という幅広いサービスを、来店前のユーザーが迷わず辿れる導線設計で構成しました。デザインカンプの再現からCMS実装まで一人で担当。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
-    thumb: "assets/images/works/sakubuncafe.jpg"
+    tracking: ANALYTICS_SETUP,
+    thumb: "assets/images/works/matsuda-motors.jpg"
   },
   {
-    id: "inadog",
-    title: "inadog",
+    id: "cinematic",
+    title: "Cinematic",
     category: "website",
     catLabel: "Webサイト",
     role: "チーム制作",
-    url: "https://inadog.com/",
-    summary: "中小企業の経営者向けYouTube運用サポートを提供するコーポレートサイト。代表・稲田の実績とサービス内容を訴求。",
-    description: "中小企業の経営者向けにYouTube運用の相談・伴走支援を行うinadogのコーポレートサイト。Inc-Tubeなどのサービス紹介、事例・お客様の声、セミナー情報などを整理し、チームの一員として制作に参加しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "HubSpot CMS", "HubL"],
-    thumb: "assets/images/works/inadog.jpg"
-  },
-  {
-    id: "azmas-tray",
-    title: "吾嬬製作所 トレー商品LP",
-    category: "lp",
-    catLabel: "LP",
-    role: "単独制作",
-    url: "https://azmas.co.jp/tray_lp/",
-    summary: "墨田区で創業100年超の真空成型メーカー・吾嬬製作所のトレー商品LP。小ロット・オーダーメイドの強みを訴求。",
-    description: "株式会社吾嬬製作所のプラスチックトレー・真空成型試作を紹介するランディングページ。創業1924年の技術力と、小ロット・オーダーメイドへの対応力をファーストビューから問い合わせ導線まで一貫して訴求する構成を、単独制作しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript"],
-    thumb: "assets/images/works/azmas-tray.jpg"
-  },
-  {
-    id: "inochiryo",
-    title: "命涼（inochiryo）LP",
-    category: "lp",
-    catLabel: "LP",
-    role: "単独制作",
-    url: "https://i-icf.co.jp/inochiryo/",
-    summary: "製造工場・建設現場向け熱中症対策ブース「命涼（らく冷えブース）」の商品LP。ブースの特長と問い合わせ導線を単独で設計・制作。",
-    description: "コンフォートフォーム株式会社が開発した熱中症対策ブース「命涼（らく冷えブース）」の紹介ランディングページ。製造工場・建設現場を主なターゲットに、独自素材「エアインフォーム」の特長や「誰でも・どこでも・すぐ設置できる」というコンセプトを訴求する構成を単独で制作しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript"],
-    thumb: "assets/images/works/inochiryo.jpg"
+    url: "https://www.cinematic.jp/",
+    summary: "結婚式向け映像制作を専門とする株式会社シネマチックのコーポレートサイト。プロフィールムービーやエンドロールなど多彩なサービスをチームで制作。",
+    description: "結婚式向け映像制作の専門会社・株式会社シネマチックのWebサイト。プロフィールムービー・オープニングムービー・エンドロールなど幅広いサービスを紹介するコーポレートサイトを、チームの一員として制作しました。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "Shopify", "Liquid"],
+    thumb: "assets/images/works/cinematic.jpg"
   },
   {
     id: "taniguchi-oem",
@@ -123,16 +99,40 @@ const WORKS = [
     thumb: "assets/images/works/g-eight.jpg"
   },
   {
-    id: "cinematic",
-    title: "Cinematic",
+    id: "inochiryo",
+    title: "命涼（inochiryo）LP",
+    category: "lp",
+    catLabel: "LP",
+    role: "単独制作",
+    url: "https://i-icf.co.jp/inochiryo/",
+    summary: "製造工場・建設現場向け熱中症対策ブース「命涼（らく冷えブース）」の商品LP。ブースの特長と問い合わせ導線を単独で設計・制作。",
+    description: "コンフォートフォーム株式会社が開発した熱中症対策ブース「命涼（らく冷えブース）」の紹介ランディングページ。製造工場・建設現場を主なターゲットに、独自素材「エアインフォーム」の特長や「誰でも・どこでも・すぐ設置できる」というコンセプトを訴求する構成を単独で制作しました。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript"],
+    thumb: "assets/images/works/inochiryo.jpg"
+  },
+  {
+    id: "inadog",
+    title: "inadog",
     category: "website",
     catLabel: "Webサイト",
     role: "チーム制作",
-    url: "https://www.cinematic.jp/",
-    summary: "結婚式向け映像制作を専門とする株式会社シネマチックのコーポレートサイト。プロフィールムービーやエンドロールなど多彩なサービスをチームで制作。",
-    description: "結婚式向け映像制作の専門会社・株式会社シネマチックのWebサイト。プロフィールムービー・オープニングムービー・エンドロールなど幅広いサービスを紹介するコーポレートサイトを、チームの一員として制作しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "Shopify", "Liquid"],
-    thumb: "assets/images/works/cinematic.jpg"
+    url: "https://inadog.com/",
+    summary: "中小企業の経営者向けYouTube運用サポートを提供するコーポレートサイト。代表・稲田の実績とサービス内容を訴求。",
+    description: "中小企業の経営者向けにYouTube運用の相談・伴走支援を行うinadogのコーポレートサイト。Inc-Tubeなどのサービス紹介、事例・お客様の声、セミナー情報などを整理し、チームの一員として制作に参加しました。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "HubSpot CMS", "HubL"],
+    thumb: "assets/images/works/inadog.jpg"
+  },
+  {
+    id: "azmas-tray",
+    title: "吾嬬製作所 トレー商品LP",
+    category: "lp",
+    catLabel: "LP",
+    role: "単独制作",
+    url: "https://azmas.co.jp/tray_lp/",
+    summary: "墨田区で創業100年超の真空成型メーカー・吾嬬製作所のトレー商品LP。小ロット・オーダーメイドの強みを訴求。",
+    description: "株式会社吾嬬製作所のプラスチックトレー・真空成型試作を紹介するランディングページ。創業1924年の技術力と、小ロット・オーダーメイドへの対応力をファーストビューから問い合わせ導線まで一貫して訴求する構成を、単独制作しました。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript"],
+    thumb: "assets/images/works/azmas-tray.jpg"
   }
 ];
 
