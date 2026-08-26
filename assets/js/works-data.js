@@ -23,6 +23,22 @@ const ANALYTICS_SETUP = [
 
 const WORKS = [
   {
+    id: "arusen",
+    title: "株式会社アルセン",
+    category: "website",
+    catLabel: "Webサイト",
+    role: "単独制作",
+    url: "https://arusen.com/",
+    summary: "独自技術で機能性素材を開発する株式会社アルセンのコーポレートサイト。Figma MCP × Claude Code を活用し、単独制作・5営業日で納品しました。",
+    description: "「独自技術の融複合で、新たな製品価値を作る」を掲げる株式会社アルセンのコーポレートサイト。「暗所イオン触媒」「スマート繊維 IoniQue-EX」「真軸インソール／Magic Insole」という3つのコア技術と研究開発のエビデンスを整理し、アパレル・寝具・フットウェアなどのメーカーからOEM・共同開発の相談につながる導線を設計しました。Figma MCPでデザインカンプから実装値を直接取得し、Claude Codeによる実装・検証を組み合わせることで、単独制作でありながら5営業日での納品を実現しています。",
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Figma MCP", "Claude Code"],
+    tracking: [
+      { name: "Google Analytics", work: "設置・初期設定" },
+      { name: "Google Tag Manager", work: "設置・初期設定・キーイベント設定" }
+    ],
+    thumb: "assets/images/works/arusen.jpg"
+  },
+  {
     id: "sakubuncafe",
     title: "あおぞら作文教室",
     category: "website",
