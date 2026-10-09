@@ -3,6 +3,7 @@
    - モバイルナビ開閉
    - 実績一覧の描画＋カテゴリ絞り込み（works.html / トップのプレビュー）
    - 実績詳細の描画（work.html?id=xxx）
+   - 運用実績の一覧・詳細（operations.html / operation.html?id=xxx）
    - スクロール時のふわっと表示
    ========================================================= */
 (function () {
@@ -34,12 +35,13 @@
   }
 
   /* ---------- 実績カードのHTML ---------- */
-  function cardHTML(w) {
+  function cardHTML(w, href) {
     const thumb = w.thumb
       ? `<img src="${esc(w.thumb)}" alt="${esc(w.title)}のサムネイル" loading="lazy">`
       : `<span class="card__thumb-fallback">${esc(w.title)}</span>`;
+    const url = typeof href === "string" ? href : `work.html?id=${encodeURIComponent(w.id)}`;
     return `
-      <a class="card reveal" href="work.html?id=${encodeURIComponent(w.id)}" aria-label="${esc(w.title)}の詳細を見る">
+      <a class="card reveal" href="${url}" aria-label="${esc(w.title)}の詳細を見る">
         <div class="card__thumb">${thumb}</div>
         <div class="card__body">
           <div class="card__meta">
@@ -64,7 +66,7 @@
       const list = filter && filter !== "all"
         ? items.filter((w) => w.category === filter)
         : items;
-      grid.innerHTML = list.map(cardHTML).join("") ||
+      grid.innerHTML = list.map((w) => cardHTML(w)).join("") ||
         '<p style="color:var(--muted)">該当する制作物がありません。</p>';
       observeReveal();
     };
@@ -102,6 +104,64 @@
         <p class="effort__rate">約${rate}%削減<small>（約${saved}h短縮）</small></p>
         ${(e.notes || []).length ? `<ul class="effort__notes">${e.notes.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
       </section>`;
+  }
+
+  /* ---------- 運用実績の一覧 ---------- */
+  function renderOperations() {
+    const grid = $("[data-operations-grid]");
+    if (!grid || typeof OPERATIONS === "undefined") return;
+    const limit = parseInt(grid.getAttribute("data-limit") || "0", 10);
+    const items = limit > 0 ? OPERATIONS.slice(0, limit) : OPERATIONS;
+    grid.innerHTML = items.map((item) =>
+      cardHTML(item, `operation.html?id=${encodeURIComponent(item.id)}`)
+    ).join("") || '<p style="color:var(--muted)">運用実績はまだありません。</p>';
+    observeReveal();
+  }
+
+  /* ---------- 運用実績の詳細 ---------- */
+  function renderOperationDetail() {
+    const root = $("[data-operation-detail]");
+    if (!root || typeof OPERATIONS === "undefined") return;
+    const id = new URLSearchParams(location.search).get("id");
+    const item = OPERATIONS.find((x) => x.id === id);
+
+    if (!item) {
+      root.innerHTML = `<p style="color:var(--muted)">運用実績が見つかりませんでした。<a href="operations.html" style="color:var(--accent);font-weight:700">一覧に戻る</a></p>`;
+      return;
+    }
+    document.title = `${item.title}の運用 | Shun Tsuruoka Portfolio`;
+
+    const visual = item.thumb
+      ? `<div class="detail__visual"><img src="${esc(item.thumb)}" alt="${esc(item.title)}のスクリーンショット" style="width:100%;height:100%;object-fit:cover"></div>`
+      : `<div class="detail__visual"><span>${esc(item.title)}</span></div>`;
+    const updates = (item.updates || []).map((t) => `<li>${esc(t)}</li>`).join("");
+    const workLink = item.workId
+      ? `<p class="detail__note"><a href="work.html?id=${encodeURIComponent(item.workId)}">新規制作時の実績</a>は制作物一覧に掲載しています。</p>`
+      : "";
+
+    root.innerHTML = `
+      <a class="back-link" href="operations.html">${ICON.back} 運用実績一覧へ戻る</a>
+      <div class="detail">
+        ${visual}
+        <div>
+          <div class="detail__meta">
+            <span class="badge badge--cat">${esc(item.catLabel)}</span>
+            <span class="badge badge--role">${esc(item.role)}</span>
+          </div>
+          <h1 class="detail__title">${esc(item.title)}</h1>
+          <p class="detail__desc">${esc(item.description)}</p>
+          ${updates ? `<h2 class="detail__subhead">公開後に対応したこと</h2><ul class="detail__updates">${updates}</ul>` : ""}
+          <dl>
+            <dt>担当</dt><dd>${esc(item.role)}</dd>
+            <dt>時期</dt><dd>${esc(item.period)}</dd>
+            <dt>使用技術</dt><dd>${item.tech.map(esc).join(" / ")}</dd>
+          </dl>
+          ${workLink}
+          <a class="btn btn--primary" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+            サイトを見る
+          </a>
+        </div>
+      </div>`;
   }
 
   /* ---------- 詳細の描画 ---------- */
@@ -187,7 +247,8 @@
     $$(".site-header .nav__link").forEach((a) => {
       const href = a.getAttribute("href");
       if (href === file || (file === "" && href === "index.html") ||
-          (file === "work.html" && href === "works.html")) {
+          (file === "work.html" && href === "works.html") ||
+          (file === "operation.html" && href === "operations.html")) {
         a.setAttribute("aria-current", "page");
       }
     });
@@ -198,6 +259,8 @@
     markCurrent();
     renderList();
     renderDetail();
+    renderOperations();
+    renderOperationDetail();
     initExternalLinkIcons();
     observeReveal();
   });
