@@ -33,7 +33,8 @@ const WORKS = [
     url: "https://www.tkf.or.jp/recruit/",
     summary: "既存の組合サイトへ人材募集セクションを追加。トップ・下層6ページ・バナー3種を、Claude Codeを使って単独で実装しました。",
     description: "東京ニットファッション工業組合（TKF）の既存WordPressサイトに、人材募集セクションを追加しました。人材募集トップ（ヒーロー、仕事紹介、インタビュー、研修制度、職場環境の取り組み、募集企業、CTA）に加え、インタビュー・職場環境・募集企業の一覧と詳細、計6つの下層ページ、バナー3種を既存テーマへ組み込んでいます。記事詳細はコラムモジュール（3列グリッド、タグ、ページ送り、目次の自動生成）として実装し、グローバルナビの導線も人材募集へ差し替えました。ランドマークや表の見出し、代替テキストなどのアクセシビリティ対応と、デザインカンプとの表示差分の修正、社内チェックバック対応まで、Claude Codeを活用して単独で進めています。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Claude Code"]
+    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Claude Code"],
+    thumb: "assets/images/works/tkf.jpg"
   },
   {
     id: "arusen",

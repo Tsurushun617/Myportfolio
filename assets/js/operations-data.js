@@ -32,6 +32,7 @@ const OPERATIONS = [
       "反映後の確認で見つけたブログ一覧の表示崩れをその場で修正し、インタビュー3記事と職場環境の取り組み1記事を本番で投稿・公開しました。"
     ],
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Claude Code"],
+    thumb: "assets/images/works/tkf.jpg",
     workId: "tkf"
   },
   {
