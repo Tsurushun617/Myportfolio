@@ -645,6 +645,43 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 .detail dl { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem 1.2rem; margin: 0 0 1.8rem; font-family: "Noto Sans JP", sans-serif; }
 .detail dt { font-weight: 700; color: var(--muted); font-size: 0.85rem; }
 .detail dd { margin: 0; font-size: 0.92rem; }
+
+.effort {
+  margin: 0 0 1.8rem; padding: clamp(1.1rem, 3vw, 1.5rem);
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--base-2);
+  font-family: "Noto Sans JP", sans-serif;
+}
+.effort__title { font-size: 1rem; margin: 0 0 1rem; }
+.effort__bars { display: grid; gap: 0.9rem; margin: 0; padding: 0; list-style: none; }
+.effort__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.2rem 1rem;
+  margin-bottom: 0.35rem;
+}
+.effort__label { font-size: 0.82rem; font-weight: 700; }
+.effort__hours { font-family: "Inter", sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--accent); }
+.effort__row--base .effort__hours { color: var(--muted); }
+.effort__bar {
+  height: 0.75rem; border-radius: 999px;
+  background: var(--base); border: 1px solid var(--line); overflow: hidden;
+}
+.effort__fill {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+}
+.effort__row--base .effort__fill { background: var(--muted); }
+.effort__rate {
+  margin: 1rem 0 0;
+  color: var(--accent); font-size: 1.15rem; font-weight: 800;
+}
+.effort__rate small { margin-left: 0.3rem; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+.effort__notes {
+  margin: 0.9rem 0 0; padding: 0.8rem 0 0; border-top: 1px solid var(--line);
+  list-style: none; display: grid; gap: 0.35rem;
+  color: var(--muted); font-size: 0.72rem; line-height: 1.6;
+}
+.effort__notes li::before { content: "※"; }
 .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-weight: 700; margin-bottom: 1.5rem; }
 .back-link .ic { width: 16px; height: 16px; }
 

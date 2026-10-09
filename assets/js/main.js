@@ -80,6 +80,30 @@
     });
   }
 
+  /* ---------- 工数比較の横棒グラフ ---------- */
+  function effortHTML(e) {
+    if (!e || !e.items || e.items.length < 2) return "";
+    const max = Math.max(...e.items.map((i) => i.hours));
+    const [base, ai] = e.items;
+    const saved = base.hours - ai.hours;
+    const rate = Math.round((saved / base.hours) * 100);
+    const rows = e.items.map((i, n) => `
+      <li class="effort__row${n === 0 ? " effort__row--base" : ""}">
+        <div class="effort__head">
+          <span class="effort__label">${esc(i.label)}</span>
+          <span class="effort__hours">約${esc(i.hours)}h</span>
+        </div>
+        <div class="effort__bar" aria-hidden="true"><span class="effort__fill" style="width:${(i.hours / max) * 100}%"></span></div>
+      </li>`).join("");
+    return `
+      <section class="effort" aria-labelledby="effort-title">
+        <h2 class="effort__title" id="effort-title">工数比較シミュレーション</h2>
+        <ul class="effort__bars">${rows}</ul>
+        <p class="effort__rate">約${rate}%削減<small>（約${saved}h短縮）</small></p>
+        ${(e.notes || []).length ? `<ul class="effort__notes">${e.notes.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+      </section>`;
+  }
+
   /* ---------- 詳細の描画 ---------- */
   function renderDetail() {
     const root = $("[data-work-detail]");
@@ -113,6 +137,7 @@
             <dt>使用技術</dt><dd>${w.tech.map(esc).join(" / ")}</dd>
             ${(w.tracking || []).map((t) => `<dt>${esc(t.name)}</dt><dd>${esc(t.work)}</dd>`).join("")}
           </dl>
+          ${effortHTML(w.effort)}
           <a class="btn btn--primary" href="${esc(w.url)}" target="_blank" rel="noopener noreferrer">
             サイトを見る
           </a>

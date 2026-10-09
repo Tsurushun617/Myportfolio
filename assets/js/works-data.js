@@ -9,6 +9,8 @@
    - description : 詳細ページ用の説明
    - tech        : 使用言語・技術（配列）
    - tracking    : 計測ツール等（任意）{ name: 項目名, work: 担当内容 } の配列
+   - effort      : 工数比較（任意）{ items: [{ label, hours }], notes: [注記] }
+                   items の1件目を比較の基準とし、2件目との差から削減率を表示
    - thumb       : サムネ画像パス（assets/images/works/ に置いて指定。空ならプレースホルダ表示）
 
    ※業種・説明・担当範囲は鶴岡さんご自身でご確認のうえ、適宜修正してください。
@@ -36,6 +38,17 @@ const WORKS = [
       { name: "Google Analytics", work: "設置・初期設定" },
       { name: "Google Tag Manager", work: "設置・初期設定・キーイベント設定" }
     ],
+    effort: {
+      items: [
+        { label: "人間のみで制作した場合（想定工数）", hours: 60 },
+        { label: "Claude Code を活用した場合", hours: 52 }
+      ],
+      notes: [
+        "対象範囲：TOP・会社概要・開発ストーリー・暗所イオン触媒・OEM・よくある質問・ニュース・コラム・お問い合わせ・英語版会社概要など、公開済みの範囲。",
+        "想定工数は、ページ別のコーディング工数に、環境構築・画像処理・モジュール設計・CMS設定・公開作業・修正対応の共通作業を加えた54〜67hの中央値。",
+        "Claude Code 活用時の工数は、作業ログの稼働時間と作業日数（計17日）から算出。構造化データ（AIO）対応や設計ドキュメントの整備など、想定工数に含まない作業も含みます。"
+      ]
+    },
     thumb: "assets/images/works/arusen.jpg"
   },
   {
