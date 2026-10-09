@@ -49,10 +49,11 @@
         </div>
         <p class="profile__lead reveal">
           日々のWeb制作では、ディレクターからの修正指示の整理、Gitでのブランチ作成やプッシュ、修正前ファイルの控え、テスト環境へ上げるファイルの洗い出しなど、制作そのものではない定型作業が多く発生します。<br>
-          AIコーディングツールを使い始めた当初は、そのたびに「コードは編集しないで」「プッシュだけでマージはしないで」と同じ指示を書き直しており、指示していない箇所までAIが変更してしまうこともありました。
+          AIコーディングツールを使い始めた当初は、そのたびに「コードは編集しないで」「プッシュだけでマージはしないで」と同じ指示を書き直しており、指示していない箇所までAIが変更してしまうこともありました。<br>
+          さらにAIの活用が進むにつれて、トークン（AIの利用量）の上限にすぐ達してしまうことが頻発するようになりました。
         </p>
         <p class="profile__lead reveal">
-          そこで、Claude Codeの「スキル（定型業務の手順書）」「サブエージェント（役割を限定したAI）」「フック（特定の操作の直前に自動で動く仕組み）」を組み合わせ、繰り返す作業と守るべきルールを仕組みとして固定しました。
+          そこで、Claude Codeの「スキル（定型業務の手順書）」「サブエージェント（役割を限定したAI）」「フック（特定の操作の直前に自動で動く仕組み）」を組み合わせ、繰り返す作業と守るべきルールを仕組みとして固定しました。作業の難しさに合わせてAIのモデルや考える量（エフォート）を切り替え、トークンを無駄に消費しない設計にしています。
         </p>
 
         <ul class="auto-issues reveal" role="list">
@@ -67,6 +68,10 @@
           <li class="auto-issue">
             <p class="auto-issue__label">ISSUE 03</p>
             <p class="auto-issue__text">控え・上げ漏れの確認が人の注意力頼みだった</p>
+          </li>
+          <li class="auto-issue">
+            <p class="auto-issue__label">ISSUE 04</p>
+            <p class="auto-issue__text">トークンの上限にすぐ達していた</p>
           </li>
         </ul>
       </div>
@@ -101,11 +106,11 @@
           <ul class="auto-map__row auto-map__row--split" role="list">
             <li class="auto-map__node">
               <p class="auto-map__role">スキル<small>30種</small></p>
-              <p class="auto-map__desc">指示書の解読、Git操作、デプロイ対象の一覧化など、定型業務の手順書</p>
+              <p class="auto-map__desc">指示書の解読、Git操作、デプロイ対象の一覧化など、定型業務の手順書。作業の難しさに応じてモデルとエフォートを指定</p>
             </li>
             <li class="auto-map__node">
               <p class="auto-map__role">サブエージェント<small>5種</small></p>
-              <p class="auto-map__desc">コード調査、デザインデータからの数値抽出、実装、規約・文言の照合を分担</p>
+              <p class="auto-map__desc">コード調査、デザインデータからの数値抽出、実装、規約・文言の照合を分担。スキルの中から自動で立ち上がり、軽量モデルで結論だけを返す</p>
             </li>
             <li class="auto-map__node">
               <p class="auto-map__role">フック<small>自動実行</small></p>
@@ -316,6 +321,40 @@
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
                   <p class="flow__text">「今日はここまで」の一言で済むように。スキル化後の24件のうち18件は、この一言だけで完了しています。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">07</p>
+            <h2 class="auto-case__title">作業の難しさに合わせたモデル・エフォートの切り替え</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>AIの活用が進むにつれ、トークンの上限にすぐ達するように</li>
+                  <li>複雑な作業を軽いモデルで行うと、意図どおりの成果物にならない</li>
+                  <li>簡単な作業を高性能なモデルで行うと、不要な文脈まで読んでトークンを浪費する</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>スキルごとに、作業の難しさに合ったモデルとエフォートを設定</li>
+                  <li>指示書の解読や本番反映など、ミスが手戻りにつながる作業は考える量を最大に</li>
+                  <li>コミットメッセージ作成などの定型作業は、軽量モデルで処理</li>
+                  <li>サブエージェントはスキルの中から自動で立ち上がり、軽量モデルで調査・照合して結論だけを返す</li>
+                  <li>長時間の作業の前に、利用枠と作業規模を確認</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">作業に見合ったモデルで動くため、成果物の質を保ちながら、無駄なトークン消費を抑えられるようになりました。定型業務はスキルを呼び出すだけで、作業に合ったモデルとエフォートで動きます。</p>
                 </div>
               </li>
             </ol>
