@@ -790,7 +790,7 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 }
 .flow__label {
   margin: 0; color: var(--muted);
-  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+  font-size: 0.875rem; font-weight: 700; letter-spacing: 0.14em;
 }
 .flow__step--result .flow__label { color: var(--accent); }
 .flow__text { margin: 0.35rem 0 0; font-size: 0.88rem; line-height: 1.75; }
