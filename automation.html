@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <title>Automation Claude Codeによる業務の自動化｜Shun Tsuruoka Portfolio</title>
+  <meta name="description" content="鶴岡駿がClaude Codeを使って仕組み化したWeb制作業務の自動化について、課題・解決方法・成果をご紹介します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="index.html" aria-label="トップページへ">
+        <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+        <span class="brand__name">Shun Tsuruoka<small>つるおか しゅん</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開閉する"><span></span></button>
+      <nav class="nav" id="site-nav" aria-label="メインメニュー">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="works.html">Works<span class="nav__ja">制作物</span></a></li>
+          <li><a class="nav__link" href="operations.html">Operations<span class="nav__ja">運用実績</span></a></li>
+          <li><a class="nav__link" href="automation.html">Automation<span class="nav__ja">自動化</span></a></li>
+          <li><a class="nav__link" href="about.html">About<span class="nav__ja">私について</span></a></li>
+          <li><a class="nav__link" href="index.html#contact">Contact<span class="nav__ja">お問い合わせ</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <h1>Automation</h1>
+        <p>Claude Codeによる業務の自動化</p>
+      </div>
+    </section>
+
+    <!-- ===== Background ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Background</span>
+          <span class="ja">取り組んだ背景と課題</span>
+        </div>
+        <p class="profile__lead reveal">
+          日々のWeb制作では、ディレクターからの修正指示の整理、Gitでのブランチ作成やプッシュ、修正前ファイルの控え、テスト環境へ上げるファイルの洗い出しなど、制作そのものではない定型作業が多く発生します。<br>
+          AIコーディングツールを使い始めた当初は、そのたびに「コードは編集しないで」「プッシュだけでマージはしないで」と同じ指示を書き直しており、指示していない箇所までAIが変更してしまうこともありました。
+        </p>
+        <p class="profile__lead reveal">
+          そこで、Claude Codeの「スキル（定型業務の手順書）」「サブエージェント（役割を限定したAI）」「フック（特定の操作の直前に自動で動く仕組み）」を組み合わせ、繰り返す作業と守るべきルールを仕組みとして固定しました。
+        </p>
+
+        <ul class="auto-issues reveal" role="list">
+          <li class="auto-issue">
+            <p class="auto-issue__label">ISSUE 01</p>
+            <p class="auto-issue__text">同じ指示を毎回書き直していた</p>
+          </li>
+          <li class="auto-issue">
+            <p class="auto-issue__label">ISSUE 02</p>
+            <p class="auto-issue__text">指示していない箇所までAIが変更していた</p>
+          </li>
+          <li class="auto-issue">
+            <p class="auto-issue__label">ISSUE 03</p>
+            <p class="auto-issue__text">控え・上げ漏れの確認が人の注意力頼みだった</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Architecture ===== -->
+    <section class="section section--soft">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Architecture</span>
+          <span class="ja">仕組みの全体像</span>
+        </div>
+        <p class="profile__lead reveal">
+          1つのAIにすべてを任せず、「計画と検収」と「実行」を分けています。メインのAIが依頼を解釈して作業を割り振り、結果を確認してから私に報告します。
+        </p>
+
+        <figure class="auto-map reveal">
+          <div class="auto-map__row">
+            <div class="auto-map__node auto-map__node--person">
+              <p class="auto-map__role">依頼者（私）</p>
+              <p class="auto-map__desc">「指示が来た」「プッシュ」など短い言葉で依頼</p>
+            </div>
+          </div>
+          <div class="auto-map__arrow" aria-hidden="true"></div>
+          <div class="auto-map__row">
+            <div class="auto-map__node auto-map__node--main">
+              <p class="auto-map__role">メインAI</p>
+              <p class="auto-map__desc">依頼の解釈・計画・難易度の判定・結果の検収</p>
+            </div>
+          </div>
+          <div class="auto-map__arrow" aria-hidden="true"></div>
+          <ul class="auto-map__row auto-map__row--split" role="list">
+            <li class="auto-map__node">
+              <p class="auto-map__role">スキル<small>30種</small></p>
+              <p class="auto-map__desc">指示書の解読、Git操作、デプロイ対象の一覧化など、定型業務の手順書</p>
+            </li>
+            <li class="auto-map__node">
+              <p class="auto-map__role">サブエージェント<small>5種</small></p>
+              <p class="auto-map__desc">コード調査、デザインデータからの数値抽出、実装、規約・文言の照合を分担</p>
+            </li>
+            <li class="auto-map__node">
+              <p class="auto-map__role">フック<small>自動実行</small></p>
+              <p class="auto-map__desc">ファイルを編集する直前に、修正前の原本を自動で退避</p>
+            </li>
+          </ul>
+          <div class="auto-map__base">
+            <p class="auto-map__role">共通ルール</p>
+            <p class="auto-map__desc">全案件で守る作業原則（依頼された範囲だけ動く・事実と推測を分ける など）</p>
+          </div>
+          <figcaption class="auto-map__caption">図1：依頼から報告までの役割分担</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== Cases ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Cases</span>
+          <span class="ja">自動化した業務</span>
+        </div>
+
+        <div class="auto-cases">
+          <article class="auto-case reveal">
+            <p class="auto-case__no">01</p>
+            <h2 class="auto-case__title">修正指示・チェック指摘の解読</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>指示書に曖昧な点や抜け漏れがある</li>
+                  <li>整理の仕方が毎回ばらばら</li>
+                  <li>メモの保存場所が統一されていない</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>曖昧な点を質問リストに整理</li>
+                  <li>修正対象を実際のファイルと照合</li>
+                  <li>方針メモとTODOを日付フォルダに保存</li>
+                  <li>この段階ではコードを編集しない</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">「指示が来た」の一言で起動し、日付ごとのフォルダに同じ形式で残るように。追加指示も既存のメモに追記され、経緯を後から追えます。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">02</p>
+            <h2 class="auto-case__title">Git運用の型化</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>「プッシュだけ」「マージはしないで」と毎回範囲を指定</li>
+                  <li>mainブランチへの直接コミットが心配</li>
+                  <li>不要なファイルを巻き込むおそれ</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>ブランチ作成・コミット・プッシュ・プルリクエストを別々のスキルに分割</li>
+                  <li>依頼された言葉の工程で必ず止まる設計</li>
+                  <li>全ファイルを一括で追加するコマンドを禁止し、機密情報や巨大なファイルの混入を防止</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">「ブランチ作って」「プッシュ」の一言で済むように。作業範囲の念押しは9件から2件に減りました。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">03</p>
+            <h2 class="auto-case__title">修正前ファイルの自動バックアップ</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>修正前に原本を控えるルールがある</li>
+                  <li>AIへの指示が毎回必要</li>
+                  <li>同じ再指示が4回続いた</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>ファイル編集の直前に自動で動くフックを作成</li>
+                  <li>原本を日付フォルダへ自動で退避</li>
+                  <li>同じ作業ブランチ内では最初の原本だけを残し、修正前のファイルを特定しやすく</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">指示しなくても控えが必ず残るように。人の注意力に頼らず、いつでも修正前に戻せる状態を保てています。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">04</p>
+            <h2 class="auto-case__title">役割を分けたAIによる品質チェック</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>実装したAI自身の確認では見落としが残りやすい</li>
+                  <li>デザインとの細かなズレは目視頼み</li>
+                  <li>文言・リンクの誤りも目視頼み</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>画面を撮影してデザインカンプと比較</li>
+                  <li>別のAIにコードをレビューさせる</li>
+                  <li>文言とリンクだけを機械的に照合</li>
+                  <li>指摘がなくなるまで繰り返す（上限3巡）</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">観点ごとに抜けなく確認できるように。チェックは依頼したときだけ動くため、AIの利用量と待ち時間も自分で管理できます。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">05</p>
+            <h2 class="auto-case__title">アップロード対象・人の作業の一覧化</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>FTPの手動アップロードで上げ漏れが起きやすい</li>
+                  <li>管理画面での設定作業を伝え漏れることがある</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>Gitの差分からアップロード対象を自動で洗い出し</li>
+                  <li>ファイル・カスタムフィールド設定・固定ページ本文など種類別に一覧化</li>
+                  <li>アップロードや本番反映は人が行う線引き</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">反映前に「何を・どこへ」が一覧で分かり、上げ漏れの確認を差分にもとづいて行えるようになりました。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">06</p>
+            <h2 class="auto-case__title">作業の中断と再開</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>作業を終えるたびにTODOの更新を依頼</li>
+                  <li>「次回スムーズに再開できるように」と毎回長い説明が必要</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>TODOと方針メモを実態に合わせて更新</li>
+                  <li>「済んだこと／次にやること／人が確認すること」を書き直す手順をスキル化</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">「今日はここまで」の一言で済むように。スキル化後の24件のうち18件は、この一言だけで完了しています。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Cycle ===== -->
+    <section class="section section--leaf">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Cycle</span>
+          <span class="ja">改善の回し方</span>
+        </div>
+        <p class="profile__lead reveal">
+          仕組みは作って終わりにせず、AIへの依頼履歴を分析して見直しています。約4か月分・2,335件の依頼を分類し、「繰り返している指示」と「AIへの訂正」を洗い出して、優先度の高いものから共通ルールやスキルに反映しました。
+        </p>
+        <figure class="cycle reveal">
+          <ol class="cycle__list" role="list">
+            <li class="cycle__step"><span class="cycle__no">1</span><p class="cycle__text">日々の制作でAIを使う</p></li>
+            <li class="cycle__step"><span class="cycle__no">2</span><p class="cycle__text">依頼履歴から繰り返しと訂正を抽出</p></li>
+            <li class="cycle__step"><span class="cycle__no">3</span><p class="cycle__text">ルール・スキルとして仕組み化</p></li>
+            <li class="cycle__step"><span class="cycle__no">4</span><p class="cycle__text">件数が減ったかを再確認</p></li>
+          </ol>
+          <figcaption class="auto-map__caption">図2：使う → 分析する → 仕組み化する → 確かめる、の繰り返し</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== Results ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Results</span>
+          <span class="ja">成果</span>
+        </div>
+
+        <ul class="auto-stats reveal" role="list">
+          <li class="auto-stat">
+            <p class="auto-stat__num">30<small>種</small></p>
+            <p class="auto-stat__label">自作したスキル</p>
+          </li>
+          <li class="auto-stat">
+            <p class="auto-stat__num">5<small>種</small></p>
+            <p class="auto-stat__label">役割を限定したサブエージェント</p>
+          </li>
+          <li class="auto-stat">
+            <p class="auto-stat__num">226<small>回</small></p>
+            <p class="auto-stat__label">Claude Codeの利用セッション（2026年5月〜10月）</p>
+          </li>
+        </ul>
+
+        <div class="effort auto-effort reveal">
+          <h3 class="effort__title">「コードは編集しないで」と念押しした回数</h3>
+          <ul class="effort__bars" role="list">
+            <li class="effort__row effort__row--base">
+              <div class="effort__head">
+                <span class="effort__label">ルール化する前</span>
+                <span class="effort__hours">59件</span>
+              </div>
+              <div class="effort__bar" aria-hidden="true"><span class="effort__fill" style="width:100%"></span></div>
+            </li>
+            <li class="effort__row">
+              <div class="effort__head">
+                <span class="effort__label">ルール化した後</span>
+                <span class="effort__hours">1件</span>
+              </div>
+              <div class="effort__bar" aria-hidden="true"><span class="effort__fill" style="width:2%"></span></div>
+            </li>
+          </ul>
+          <p class="effort__rate">約98%減<small>「調査だけの依頼では編集しない」を共通ルール化</small></p>
+          <ul class="effort__notes" role="list">
+            <li>件数は自分の依頼履歴を機械的に抽出したのち、目視で確認して数えたものです。</li>
+            <li>ルール化前（約10週間）と後（約2週間）で期間の長さが異なるため、参考値としてご覧ください。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Principles ===== -->
+    <section class="section section--soil">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Principles</span>
+          <span class="ja">自動化で大切にしていること</span>
+        </div>
+        <div class="values reveal">
+          <div class="value">
+            <p class="value__no">01</p>
+            <h3 class="value__title">頼まれた範囲だけ動かす</h3>
+            <p class="value__desc">プッシュ・本番反映・レビューは、依頼があったときだけ実行します。「ついでに」「念のため」で工程を進めないことを仕組みで保証しています。</p>
+          </div>
+          <div class="value">
+            <p class="value__no">02</p>
+            <h3 class="value__title">事実と推測を分ける</h3>
+            <p class="value__desc">判断の根拠はデザインカンプ・公式ドキュメント・実際のファイルに置き、裏が取れないことは「未確認」と明記させています。</p>
+          </div>
+          <div class="value">
+            <p class="value__no">03</p>
+            <h3 class="value__title">人とAIの境界をはっきりさせる</h3>
+            <p class="value__desc">実機での表示確認や本番への反映など、AIが確かめられない工程は「人が確認すること」として明示的に切り分けます。</p>
+          </div>
+          <div class="value">
+            <p class="value__no">04</p>
+            <h3 class="value__title">機密を外に出さない</h3>
+            <p class="value__desc">認証情報や不要なファイルがリポジトリに混入しない操作だけを許可し、うっかりミスが起きにくい状態を保っています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <a class="brand" href="index.html" aria-label="トップページへ">
+        <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11C12 7 9 5 4 5c0 4 3 6 8 6Z"/><path d="M12 13c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5Z"/></svg>
+        <span class="brand__name">Shun Tsuruoka</span>
+      </a>
+      <nav aria-label="フッターメニュー">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="works.html">Works<span class="nav__ja">制作物</span></a></li>
+          <li><a class="nav__link" href="operations.html">Operations<span class="nav__ja">運用実績</span></a></li>
+          <li><a class="nav__link" href="automation.html">Automation<span class="nav__ja">自動化</span></a></li>
+          <li><a class="nav__link" href="about.html">About<span class="nav__ja">私について</span></a></li>
+          <li><a class="nav__link" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__copy">© 2026 SHUN TSURUOKA</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/works-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

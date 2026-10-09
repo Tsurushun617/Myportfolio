@@ -22,10 +22,11 @@
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開閉する"><span></span></button>
       <nav class="nav" id="site-nav" aria-label="メインメニュー">
         <ul class="nav__list">
-          <li><a class="nav__link" href="works.html">Works</a></li>
-          <li><a class="nav__link" href="operations.html">Operations</a></li>
-          <li><a class="nav__link" href="about.html">About</a></li>
-          <li><a class="nav__link" href="index.html#contact">Contact</a></li>
+          <li><a class="nav__link" href="works.html">Works<span class="nav__ja">制作物</span></a></li>
+          <li><a class="nav__link" href="operations.html">Operations<span class="nav__ja">運用実績</span></a></li>
+          <li><a class="nav__link" href="automation.html">Automation<span class="nav__ja">自動化</span></a></li>
+          <li><a class="nav__link" href="about.html">About<span class="nav__ja">私について</span></a></li>
+          <li><a class="nav__link" href="index.html#contact">Contact<span class="nav__ja">お問い合わせ</span></a></li>
         </ul>
       </nav>
     </div>
@@ -136,6 +137,45 @@
               <span class="tag">Google Workspace</span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Automation ===== -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="en">Automation</span>
+          <span class="ja">Claude Codeによる業務の自動化</span>
+        </div>
+        <p class="profile__lead reveal">
+          修正指示の整理やGit操作、修正前ファイルの控えなど、制作に付随する定型作業をClaude Codeで仕組み化しています。<br>
+          同じ指示を繰り返さなくて済むようにし、空いた時間と注意力を、デザインの再現やユーザー視点での改善に使うことが目的です。
+        </p>
+        <div class="values reveal">
+          <div class="value">
+            <p class="value__no">01</p>
+            <h3 class="value__title">定型業務をスキル化</h3>
+            <p class="value__desc">指示書の解読、Git操作、アップロード対象の一覧化など30種類の手順を、一言で呼び出せるようにしました。</p>
+          </div>
+          <div class="value">
+            <p class="value__no">02</p>
+            <h3 class="value__title">AIの役割分担</h3>
+            <p class="value__desc">計画・検収を担うAIと、調査・実装・照合を担うAIを分け、結果を確認してから報告する流れにしています。</p>
+          </div>
+          <div class="value">
+            <p class="value__no">03</p>
+            <h3 class="value__title">修正前の自動バックアップ</h3>
+            <p class="value__desc">ファイルを編集する直前に原本を自動で退避し、いつでも修正前に戻せる状態を保っています。</p>
+          </div>
+          <div class="value">
+            <p class="value__no">04</p>
+            <h3 class="value__title">履歴分析で改善</h3>
+            <p class="value__desc">依頼履歴から繰り返す指示を洗い出してルール化し、「編集しないで」の念押しを59件から1件に減らしました。</p>
+          </div>
+        </div>
+        <div class="section-foot reveal">
+          <a class="btn btn--primary" href="automation.html">自動化の詳細を見る</a>
         </div>
       </div>
     </section>
@@ -323,9 +363,10 @@
       </a>
       <nav aria-label="フッターメニュー">
         <ul class="nav__list">
-          <li><a class="nav__link" href="works.html">Works</a></li>
-          <li><a class="nav__link" href="operations.html">Operations</a></li>
-          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link" href="works.html">Works<span class="nav__ja">制作物</span></a></li>
+          <li><a class="nav__link" href="operations.html">Operations<span class="nav__ja">運用実績</span></a></li>
+          <li><a class="nav__link" href="automation.html">Automation<span class="nav__ja">自動化</span></a></li>
+          <li><a class="nav__link" href="about.html">About<span class="nav__ja">私について</span></a></li>
           <li><a class="nav__link" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         </ul>
       </nav>
