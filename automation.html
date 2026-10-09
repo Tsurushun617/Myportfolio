@@ -22,11 +22,11 @@
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="メニューを開閉する"><span></span></button>
       <nav class="nav" id="site-nav" aria-label="メインメニュー">
         <ul class="nav__list">
-          <li><a class="nav__link" href="works.html">Works</a></li>
-          <li><a class="nav__link" href="operations.html">Operations</a></li>
-          <li><a class="nav__link" href="automation.html">Automation</a></li>
-          <li><a class="nav__link" href="about.html">About</a></li>
-          <li><a class="nav__link" href="index.html#contact">Contact</a></li>
+          <li><a class="nav__link" href="works.html">Works<span class="nav__ja">制作物</span></a></li>
+          <li><a class="nav__link" href="operations.html">Operations<span class="nav__ja">運用実績</span></a></li>
+          <li><a class="nav__link" href="automation.html">Automation<span class="nav__ja">自動化</span></a></li>
+          <li><a class="nav__link" href="about.html">About<span class="nav__ja">私について</span></a></li>
+          <li><a class="nav__link" href="index.html#contact">Contact<span class="nav__ja">お問い合わせ</span></a></li>
         </ul>
       </nav>
     </div>
@@ -136,15 +136,29 @@
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
                 <p class="flow__label">課題</p>
-                <p class="flow__text">ディレクターの指示書には曖昧な点や抜け漏れがあり、整理の仕方や保存場所も毎回ばらばらでした。</p>
+                <ul class="flow__list">
+                  <li>指示書に曖昧な点や抜け漏れがある</li>
+                  <li>整理の仕方が毎回ばらばら</li>
+                  <li>メモの保存場所が統一されていない</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--solve">
                 <p class="flow__label">解決</p>
-                <p class="flow__text">指示書を読み込み、曖昧な点を質問リストに、修正対象を実際のファイルと照合して方針メモとTODOに整理する手順をスキル化。この段階ではコードを一切編集しないことも決めました。</p>
+                <ul class="flow__list">
+                  <li>曖昧な点を質問リストに整理</li>
+                  <li>修正対象を実際のファイルと照合</li>
+                  <li>方針メモとTODOを日付フォルダに保存</li>
+                  <li>この段階ではコードを編集しない</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <p class="flow__label">成果</p>
-                <p class="flow__text">「指示が来た」の一言で起動し、日付ごとのフォルダに同じ形式で残るように。追加指示も既存のメモに追記され、経緯を後から追えます。</p>
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">「指示が来た」の一言で起動し、日付ごとのフォルダに同じ形式で残るように。追加指示も既存のメモに追記され、経緯を後から追えます。</p>
+                </div>
               </li>
             </ol>
           </article>
@@ -155,15 +169,28 @@
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
                 <p class="flow__label">課題</p>
-                <p class="flow__text">「プッシュだけ」「マージはしないで」と毎回範囲を指定する必要があり、mainブランチへの直接コミットや不要なファイルの巻き込みも心配でした。</p>
+                <ul class="flow__list">
+                  <li>「プッシュだけ」「マージはしないで」と毎回範囲を指定</li>
+                  <li>mainブランチへの直接コミットが心配</li>
+                  <li>不要なファイルを巻き込むおそれ</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--solve">
                 <p class="flow__label">解決</p>
-                <p class="flow__text">ブランチ作成・コミット・プッシュ・プルリクエストを別々のスキルにし、依頼された言葉の工程で必ず止まるように設計。全ファイルを一括で追加するコマンドは禁止し、機密情報や巨大なファイルの混入を防いでいます。</p>
+                <ul class="flow__list">
+                  <li>ブランチ作成・コミット・プッシュ・プルリクエストを別々のスキルに分割</li>
+                  <li>依頼された言葉の工程で必ず止まる設計</li>
+                  <li>全ファイルを一括で追加するコマンドを禁止し、機密情報や巨大なファイルの混入を防止</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <p class="flow__label">成果</p>
-                <p class="flow__text">「ブランチ作って」「プッシュ」の一言で済むように。作業範囲の念押しは9件から2件に減りました。</p>
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">「ブランチ作って」「プッシュ」の一言で済むように。作業範囲の念押しは9件から2件に減りました。</p>
+                </div>
               </li>
             </ol>
           </article>
@@ -174,15 +201,28 @@
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
                 <p class="flow__label">課題</p>
-                <p class="flow__text">テーマファイルを直す前に原本を控えるルールを決めていましたが、AIへの指示が毎回必要で、再指示が4回続いていました。</p>
+                <ul class="flow__list">
+                  <li>修正前に原本を控えるルールがある</li>
+                  <li>AIへの指示が毎回必要</li>
+                  <li>同じ再指示が4回続いた</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--solve">
                 <p class="flow__label">解決</p>
-                <p class="flow__text">ファイル編集の直前に自動で動くフックを作成し、原本を日付フォルダへ退避。同じ作業ブランチ内の連続した修正では最初の原本だけを残し、「どれが修正前か」が分からなくならないようにしました。</p>
+                <ul class="flow__list">
+                  <li>ファイル編集の直前に自動で動くフックを作成</li>
+                  <li>原本を日付フォルダへ自動で退避</li>
+                  <li>同じ作業ブランチ内では最初の原本だけを残し、修正前のファイルを特定しやすく</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <p class="flow__label">成果</p>
-                <p class="flow__text">指示しなくても控えが必ず残るように。人の注意力に頼らず、いつでも修正前に戻せる状態を保てています。</p>
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">指示しなくても控えが必ず残るように。人の注意力に頼らず、いつでも修正前に戻せる状態を保てています。</p>
+                </div>
               </li>
             </ol>
           </article>
@@ -193,15 +233,29 @@
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
                 <p class="flow__label">課題</p>
-                <p class="flow__text">実装したAI自身が確認すると見落としが残りやすく、デザインとの細かなズレや文言・リンクの誤りは目視頼みでした。</p>
+                <ul class="flow__list">
+                  <li>実装したAI自身の確認では見落としが残りやすい</li>
+                  <li>デザインとの細かなズレは目視頼み</li>
+                  <li>文言・リンクの誤りも目視頼み</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--solve">
                 <p class="flow__label">解決</p>
-                <p class="flow__text">画面を撮影してデザインカンプと比べる、別のAIにコードを見てもらう、文言とリンクだけを機械的に照合する、とチェックを役割ごとに分割。指摘がなくなるまで繰り返し、上限は3巡としました。</p>
+                <ul class="flow__list">
+                  <li>画面を撮影してデザインカンプと比較</li>
+                  <li>別のAIにコードをレビューさせる</li>
+                  <li>文言とリンクだけを機械的に照合</li>
+                  <li>指摘がなくなるまで繰り返す（上限3巡）</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <p class="flow__label">成果</p>
-                <p class="flow__text">観点ごとに抜けなく確認できるように。チェックは依頼したときだけ動くため、AIの利用量と待ち時間も自分で管理できます。</p>
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">観点ごとに抜けなく確認できるように。チェックは依頼したときだけ動くため、AIの利用量と待ち時間も自分で管理できます。</p>
+                </div>
               </li>
             </ol>
           </article>
@@ -212,15 +266,27 @@
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
                 <p class="flow__label">課題</p>
-                <p class="flow__text">FTPで手動アップロードする案件では上げ漏れが起きやすく、管理画面で必要な設定作業の伝え漏れもありました。</p>
+                <ul class="flow__list">
+                  <li>FTPの手動アップロードで上げ漏れが起きやすい</li>
+                  <li>管理画面での設定作業を伝え漏れることがある</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--solve">
                 <p class="flow__label">解決</p>
-                <p class="flow__text">Gitの差分から、アップロードするファイル・カスタムフィールドの設定・固定ページの本文などを種類別に一覧化。アップロードや本番反映そのものはAIに行わせず、判断と実行は人が担う線引きにしています。</p>
+                <ul class="flow__list">
+                  <li>Gitの差分からアップロード対象を自動で洗い出し</li>
+                  <li>ファイル・カスタムフィールド設定・固定ページ本文など種類別に一覧化</li>
+                  <li>アップロードや本番反映は人が行う線引き</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <p class="flow__label">成果</p>
-                <p class="flow__text">反映前に「何を・どこへ」が一覧で分かり、上げ漏れの確認を差分にもとづいて行えるようになりました。</p>
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">反映前に「何を・どこへ」が一覧で分かり、上げ漏れの確認を差分にもとづいて行えるようになりました。</p>
+                </div>
               </li>
             </ol>
           </article>
@@ -231,15 +297,26 @@
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
                 <p class="flow__label">課題</p>
-                <p class="flow__text">作業を終えるたびに「TODOを更新して、次回スムーズに再開できるようにして」と長い説明をしていました。</p>
+                <ul class="flow__list">
+                  <li>作業を終えるたびにTODOの更新を依頼</li>
+                  <li>「次回スムーズに再開できるように」と毎回長い説明が必要</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--solve">
                 <p class="flow__label">解決</p>
-                <p class="flow__text">TODO・方針メモを実態に合わせて更新し、「済んだこと／次にやること／人が確認すること」を書き直す手順をスキル化しました。</p>
+                <ul class="flow__list">
+                  <li>TODOと方針メモを実態に合わせて更新</li>
+                  <li>「済んだこと／次にやること／人が確認すること」を書き直す手順をスキル化</li>
+                </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <p class="flow__label">成果</p>
-                <p class="flow__text">「今日はここまで」の一言で済むように。スキル化後の24件のうち18件は、この一言だけで完了しています。</p>
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">「今日はここまで」の一言で済むように。スキル化後の24件のうち18件は、この一言だけで完了しています。</p>
+                </div>
               </li>
             </ol>
           </article>
@@ -360,10 +437,10 @@
       </a>
       <nav aria-label="フッターメニュー">
         <ul class="nav__list">
-          <li><a class="nav__link" href="works.html">Works</a></li>
-          <li><a class="nav__link" href="operations.html">Operations</a></li>
-          <li><a class="nav__link" href="automation.html">Automation</a></li>
-          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link" href="works.html">Works<span class="nav__ja">制作物</span></a></li>
+          <li><a class="nav__link" href="operations.html">Operations<span class="nav__ja">運用実績</span></a></li>
+          <li><a class="nav__link" href="automation.html">Automation<span class="nav__ja">自動化</span></a></li>
+          <li><a class="nav__link" href="about.html">About<span class="nav__ja">私について</span></a></li>
           <li><a class="nav__link" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         </ul>
       </nav>
