@@ -386,6 +386,41 @@
               </li>
             </ol>
           </article>
+
+          <article class="auto-case reveal">
+            <p class="auto-case__no">08</p>
+            <h2 class="auto-case__title">画像の書き出し・圧縮・編集・作成</h2>
+            <ol class="flow" role="list">
+              <li class="flow__step flow__step--issue">
+                <p class="flow__label">課題</p>
+                <ul class="flow__list">
+                  <li>Figmaからの画像書き出し（2倍）を1点ずつ手作業で行い、時間がかかっていた</li>
+                  <li>重い画像はWebサービスに1枚ずつアップロードして圧縮していた</li>
+                  <li>書き出した画像の名前や格納場所を毎回手で整えていた</li>
+                  <li>ちょっとした加工もデザイナーへの依頼が必要だった</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--solve">
+                <p class="flow__label">解決</p>
+                <ul class="flow__list">
+                  <li>Figmaのデザインデータから、必要な画像を2倍の解像度でAIが書き出し</li>
+                  <li>重い画像を抽出して圧縮し、AIが圧縮前後を見比べて劣化を確かめる手順をスキル化</li>
+                  <li>画像は内容が分かる名前に変えて適切なフォルダへ格納（何倍で扱うかは実寸を確かめて人が判断）</li>
+                  <li>バナーから文字や人物だけを切り出す、ボタンの色を変えるといった加工をAIに依頼</li>
+                  <li>解説記事用の図解など、画像の作成や動画の圧縮もAIに依頼</li>
+                </ul>
+              </li>
+              <li class="flow__step flow__step--result">
+                <span class="flow__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                </span>
+                <div class="flow__body">
+                  <p class="flow__label">成果</p>
+                  <p class="flow__text">時間のかかっていた画像の書き出しから圧縮・加工までをAIに任せられるようになり、デザイナーへの画像修正の依頼も大幅に減りました。圧縮後の見た目もAIが確かめるため、画質を保ったまま表示速度に配慮できます。</p>
+                </div>
+              </li>
+            </ol>
+          </article>
         </div>
       </div>
     </section>
