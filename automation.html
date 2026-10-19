@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <title>Automation Claude Codeによる業務の自動化｜Shun Tsuruoka Portfolio</title>
-  <meta name="description" content="鶴岡駿がClaude Codeを使って仕組み化したWeb制作業務の自動化について、課題・解決方法・成果をご紹介します。">
+  <meta name="description" content="鶴岡駿がClaude Codeを使って仕組み化したWeb制作業務の自動化について、悩みの根本原因・解決方法・成果をご紹介します。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -160,6 +160,10 @@
           <span class="en">Cases</span>
           <span class="ja">自動化した業務</span>
         </div>
+        <p class="profile__lead reveal">
+          自分自身やチーム、関わる人の悩みについて、その裏にある<strong>根本原因（本質的なボトルネック）</strong>を探り、解消する仕組みを考えて実行する。これが私の得意なことです。<br>
+          ここでは、悩みを「悩み → 根本原因 → 解決 → 成果」の順に整理し、実際に解決してきた事例をご紹介します。
+        </p>
 
         <div class="auto-cases">
           <article class="auto-case reveal">
@@ -167,15 +171,34 @@
             <h2 class="auto-case__title">修正指示・チェック指摘の解読</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
-                  <li>指示書に曖昧な点や抜け漏れがある</li>
+                  <li>指示書に<strong>曖昧な点や抜け漏れがある</strong></li>
                   <li>整理の仕方が毎回ばらばら</li>
                   <li>メモの保存場所が統一されていない</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">指示を読み解いて残す<strong>手順が決まっておらず</strong>、毎回その場の判断に任せていた</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>曖昧な点を質問リストに整理</li>
                   <li>修正対象を実際のファイルと照合</li>
@@ -184,17 +207,17 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>「指示が来た」の一言で起動</li>
-                    <li><strong>日付ごとのフォルダに同じ形式で残る</strong></li>
-                    <li>追加指示も既存のメモに追記され、<strong>誰が見ても経緯を追える</strong></li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>「指示が来た」の一言で起動</li>
+                  <li><strong>日付ごとのフォルダに同じ形式で残る</strong></li>
+                  <li>追加指示も既存のメモに追記され、<strong>誰が見ても経緯を追える</strong></li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -204,17 +227,36 @@
             <h2 class="auto-case__title">Git運用の型化</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
                   <li>Git操作はコマンドやエディターのプラグインで一つずつ行っていた</li>
                   <li>タスクを並行すると、ブランチの作り忘れや作業の上書きが起き、mainへ直接コミットしてしまうおそれもあった</li>
-                  <li>コミットやプッシュを忘れて作業を共有できず、パソコンの故障でデータを失ったこともあった</li>
-                  <li>「プッシュだけ」「マージはしないで」と毎回範囲を指定していた</li>
+                  <li>コミットやプッシュを忘れて作業を共有できず、<strong>パソコンの故障でデータを失ったこともあった</strong></li>
+                  <li>「プッシュだけ」「マージはしないで」と<strong>毎回範囲を指定していた</strong></li>
                   <li>不要なファイルを巻き込むおそれがあった</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">Git操作の<strong>手順と止めどころが決まっておらず</strong>、一つひとつを人の手と記憶に頼っていた</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>ブランチ作成・コミット・プッシュ・プルリクエストを別々のスキルにし、依頼された工程で必ず止まる設計に</li>
                   <li>mainのまま作業を始めると、変更内容から作業ブランチを作成</li>
@@ -224,19 +266,19 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>アプリを行き来しなくて済むので集中が途切れない</li>
-                    <li>操作ミスが大幅に減り、作業も明らかに速くなった</li>
-                    <li>並行作業でのブランチの作り忘れや上書き、プッシュ忘れによる<strong>データ消失のリスクを解消</strong></li>
-                    <li>コミットメッセージの書き漏れが減少</li>
-                    <li>作業範囲の念押しが<strong>9件から2件に減少</strong></li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>アプリを行き来しなくて済むので集中が途切れない</li>
+                  <li>操作ミスが大幅に減り、作業も明らかに速くなった</li>
+                  <li>並行作業でのブランチの作り忘れや上書き、プッシュ忘れによる<strong>データ消失のリスクを解消</strong></li>
+                  <li>コミットメッセージの書き漏れが減少</li>
+                  <li>作業範囲の念押しが<strong>9件から2件に減少</strong></li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -246,15 +288,34 @@
             <h2 class="auto-case__title">修正前ファイルの自動バックアップ</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
                   <li>修正前に原本を控えるルールがある</li>
                   <li>AIへの指示が毎回必要</li>
-                  <li>同じ再指示が4回続いた</li>
+                  <li><strong>同じ再指示が4回続いた</strong></li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">控えを取るかどうかが、<strong>AIへの指示と人の記憶しだい</strong>だった</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>ファイル編集の直前に自動で動くフックを作成</li>
                   <li>原本を日付フォルダへ自動で退避</li>
@@ -262,16 +323,16 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li><strong>指示しなくても控えが必ず残る</strong></li>
-                    <li>人の注意力に頼らず、<strong>本番反映のミスをいつでも戻せる</strong></li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li><strong>指示しなくても控えが必ず残る</strong></li>
+                  <li>人の注意力に頼らず、<strong>本番反映のミスをいつでも戻せる</strong></li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -281,15 +342,34 @@
             <h2 class="auto-case__title">役割を分けたAIによる品質チェック</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
-                  <li>実装したAI自身の確認では見落としが残りやすい</li>
+                  <li>実装したAI自身の確認では<strong>見落としが残りやすい</strong></li>
                   <li>デザインとの細かなズレは目視頼み</li>
                   <li>文言・リンクの誤りも目視頼み</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text"><strong>実装と確認を同じAIが担い</strong>、細かな照合は人の目視に頼っていた</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>画面を撮影してデザインカンプと比較</li>
                   <li>別のAIにコードをレビューさせる</li>
@@ -298,16 +378,16 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li><strong>観点ごとに抜けなく確認できる</strong></li>
-                    <li>チェックは依頼したときだけ動くため、<strong>品質を担保しつつ、確認の工数と待ち時間をコントロール</strong>できる</li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li><strong>観点ごとに抜けなく確認できる</strong></li>
+                  <li>チェックは依頼したときだけ動くため、<strong>品質を担保しつつ、確認の工数と待ち時間をコントロール</strong>できる</li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -317,14 +397,33 @@
             <h2 class="auto-case__title">アップロード対象・人の作業の一覧化</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
-                  <li>FTPの手動アップロードで上げ漏れが起きやすい</li>
+                  <li>FTPの手動アップロードで<strong>上げ漏れが起きやすい</strong></li>
                   <li>管理画面での設定作業を伝え漏れることがある</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">アップロード対象と管理画面の作業を、<strong>差分ではなく人の記憶から</strong>洗い出していた</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>Gitの差分からアップロード対象を自動で洗い出し</li>
                   <li>ファイル・カスタムフィールド設定・固定ページ本文など種類別に一覧化</li>
@@ -332,16 +431,16 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>反映前に<strong>「何を・どこへ」が一覧で分かる</strong></li>
-                    <li><strong>上げ漏れの確認を差分にもとづいて</strong>行える</li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>反映前に<strong>「何を・どこへ」が一覧で分かる</strong></li>
+                  <li><strong>上げ漏れの確認を差分にもとづいて</strong>行える</li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -351,30 +450,49 @@
             <h2 class="auto-case__title">作業の中断と再開</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
                   <li>作業を終えるたびにTODOの更新を依頼</li>
-                  <li>「次回スムーズに再開できるように」と毎回長い説明が必要</li>
+                  <li>「次回スムーズに再開できるように」と<strong>毎回長い説明が必要</strong></li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">再開に必要な情報の<strong>書き残し方が決まっておらず</strong>、毎回説明で補っていた</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>TODOと方針メモを実態に合わせて更新</li>
                   <li>「済んだこと／次にやること／人が確認すること」を書き直す手順をスキル化</li>
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>引き継ぎの説明が短くなった</li>
-                    <li>スキル化後の24件のうち<strong>18件は、「今日はここまで」の一言だけで完了</strong></li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>引き継ぎの説明が短くなった</li>
+                  <li>スキル化後の24件のうち<strong>18件は、「今日はここまで」の一言だけで完了</strong></li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -384,15 +502,34 @@
             <h2 class="auto-case__title">作業の難しさに合わせたモデル・エフォートの切り替え</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
-                  <li>AIの活用が進むにつれ、トークンの上限にすぐ達するように</li>
+                  <li>AIの活用が進むにつれ、<strong>トークンの上限にすぐ達する</strong>ように</li>
                   <li>複雑な作業を軽いモデルで行うと、意図どおりの成果物にならない</li>
                   <li>簡単な作業を高性能なモデルで行うと、不要な文脈まで読んでトークンを浪費する</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">作業の難しさと、<strong>使うモデル・考える量の組み合わせを決めていなかった</strong></p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>スキルごとに、作業の難しさに合ったモデルとエフォートを設定</li>
                   <li>指示書の解読や本番反映など、ミスが手戻りにつながる作業は考える量を最大に</li>
@@ -402,16 +539,16 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>作業に見合ったモデルで動くため、<strong>成果物の質を保ちながら、AIの利用コストを抑えられる</strong></li>
-                    <li>定型業務はスキルを呼び出すだけで、<strong>人が毎回指示しなくても、適切な品質で回る</strong></li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>作業に見合ったモデルで動くため、<strong>成果物の質を保ちながら、AIの利用コストを抑えられる</strong></li>
+                  <li>定型業務はスキルを呼び出すだけで、<strong>人が毎回指示しなくても、適切な品質で回る</strong></li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -421,16 +558,35 @@
             <h2 class="auto-case__title">画像の書き出し・圧縮・編集・作成</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
-                  <li>Figmaからの画像書き出し（2倍）を1点ずつ手作業で行い、時間がかかっていた</li>
+                  <li>Figmaからの画像書き出し（2倍）を<strong>1点ずつ手作業で行い、時間がかかっていた</strong></li>
                   <li>重い画像はWebサービスに1枚ずつアップロードして圧縮していた</li>
                   <li>書き出した画像の名前や格納場所を毎回手で整えていた</li>
-                  <li>ちょっとした加工もデザイナーへの依頼が必要だった</li>
+                  <li>ちょっとした加工も<strong>デザイナーへの依頼が必要</strong>だった</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">書き出し・圧縮・命名・加工が、<strong>1点ずつの手作業と人への依頼</strong>に頼っていた</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>Figmaのデザインデータから、必要な画像を2倍の解像度でAIが書き出し</li>
                   <li>重い画像を抽出して圧縮し、AIが圧縮前後を見比べて劣化を確かめる手順をスキル化</li>
@@ -440,17 +596,17 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>時間のかかっていた画像の書き出しから圧縮・加工までをAIに任せられる</li>
-                    <li><strong>デザイナーへの画像修正の依頼が大幅に減少</strong></li>
-                    <li>圧縮後の見た目もAIが確かめるため、<strong>画質を保ったまま表示速度に配慮</strong>できる</li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>時間のかかっていた画像の書き出しから圧縮・加工までをAIに任せられる</li>
+                  <li><strong>デザイナーへの画像修正の依頼が大幅に減少</strong></li>
+                  <li>圧縮後の見た目もAIが確かめるため、<strong>画質を保ったまま表示速度に配慮</strong>できる</li>
+                </ul>
               </li>
             </ol>
           </article>
@@ -460,17 +616,36 @@
             <h2 class="auto-case__title">React / Next.js 学習の仕組み化（出題・採点・復習）</h2>
             <ol class="flow" role="list">
               <li class="flow__step flow__step--issue">
-                <p class="flow__label">課題</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 9.4h.01M13.8 9.4h.01" stroke-width="2"/><path d="M9.3 7.9l1.7-.7M14.7 7.9l-1.7-.7"/><path d="M10 12.9a2.4 2.4 0 0 1 4 0"/><path d="M5 22a7 7 0 0 1 14 0"/><path d="M1.6 5.2c.7-1.3 1.5 1.3 2.2 0s1.5 1.3 2.2 0"/></g><path class="flow__icon-drop" d="M19.6 2.6c1.3 1.8 1.9 2.8 1.9 3.6a1.9 1.9 0 0 1-3.8 0c0-.8.6-1.8 1.9-3.6Z"/></svg>
+                  </span>
+                  <p class="flow__label">悩み</p>
+                </div>
                 <ul class="flow__list">
                   <li>React / Next.js を独学中で、まずは土台となるJavaScriptの基礎を学び直している</li>
-                  <li>AIにコードを書かせるだけでは、AIが書いたコードを読んで正しさを判断する力が育たない</li>
-                  <li>「読めた気がする」は自分では気づきにくく、理解度を客観的に測る手段がなかった</li>
+                  <li>AIにコードを書かせるだけでは、<strong>AIが書いたコードを読んで正しさを判断する力が育たない</strong></li>
+                  <li>「読めた気がする」は自分では気づきにくく、<strong>理解度を客観的に測る手段がなかった</strong></li>
                   <li>テストの結果をターミナルでしか確認できず、見返しにくかった</li>
                   <li>学習でもAIの利用上限にすぐ達していた</li>
                 </ul>
               </li>
+              <li class="flow__step flow__step--cause">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M2.5 4h12.5l-4.7 6.3v6.2l-3.1 1.6v-7.8Z"/><circle cx="16.4" cy="15.4" r="3.8"/><path d="M19.2 18.2l3 3" stroke-width="1.8"/></g><circle class="flow__icon-spark" cx="16.4" cy="15.4" r="1.4"/></svg>
+                  </span>
+                  <p class="flow__label">根本原因</p>
+                </div>
+                <p class="flow__text">AIに書かせる学び方では<strong>自分でコードを読む機会がなく</strong>、理解度を測る物差しもなかった</p>
+              </li>
               <li class="flow__step flow__step--solve">
-                <p class="flow__label">解決</p>
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><path d="M9.3 16.6v-1.1c0-1.5-.7-2.4-1.7-3.5a5.4 5.4 0 1 1 8.8 0c-1 1.1-1.7 2-1.7 3.5v1.1Z"/><path d="M9.6 19.1h4.8M10.6 21.5h2.8"/></g><path class="flow__icon-ray" d="M12 .9v1.5M4.5 3.6l1.1 1.1M19.5 3.6l-1.1 1.1M2 10.3h1.5M20.5 10.3H22"/></svg>
+                  </span>
+                  <p class="flow__label">解決</p>
+                </div>
                 <ul class="flow__list">
                   <li>学習計画をClaude Codeで自作し、Notionと接続して計画表や成績表を視覚的に管理</li>
                   <li>基礎を固める期間は、AIの役割を講師と出題役に限定し、コードは自分で打つルールに</li>
@@ -483,18 +658,18 @@
                 </ul>
               </li>
               <li class="flow__step flow__step--result">
-                <span class="flow__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
-                </span>
-                <div class="flow__body">
+                <div class="flow__head">
+                  <span class="flow__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9.5" r="5"/><path d="M10.2 8.6h.01M13.8 8.6h.01" stroke-width="2"/><path d="M9.9 11a2.6 2.6 0 0 0 4.2 0"/><path d="M5 22a7 7 0 0 1 14 0"/></g><path class="flow__icon-spark" d="M20.3 1C20.68 3.82 20.68 3.82 23.5 4.2C20.68 4.58 20.68 4.58 20.3 7.4C19.92 4.58 19.92 4.58 17.1 4.2C19.92 3.82 19.92 3.82 20.3 1ZM3.6 2.6C3.84 4.36 3.84 4.36 5.6 4.6C3.84 4.84 3.84 4.84 3.6 6.6C3.36 4.84 3.36 4.84 1.6 4.6C3.36 4.36 3.36 4.36 3.6 2.6ZM21.3 10C21.49 11.41 21.49 11.41 22.9 11.6C21.49 11.79 21.49 11.79 21.3 13.2C21.11 11.79 21.11 11.79 19.7 11.6C21.11 11.41 21.11 11.41 21.3 10Z"/></svg>
+                  </span>
                   <p class="flow__label">成果</p>
-                  <ul class="flow__list">
-                    <li>つまずきを記録から自動で浮かび上がらせ、何を直すべきかを数字と手順で管理</li>
-                    <li>合格に届かなかった節は再テストに回す</li>
-                    <li><strong>「できた気」ではなく、テストで確認できたことだけを進捗</strong>として数える</li>
-                    <li>目指すのは、<strong>AIが書いたReactのコードを読んで正しさを判断し、直す指示を出せる</strong>エンジニア</li>
-                  </ul>
                 </div>
+                <ul class="flow__list">
+                  <li>つまずきを記録から自動で浮かび上がらせ、何を直すべきかを数字と手順で管理</li>
+                  <li>合格に届かなかった節は再テストに回す</li>
+                  <li><strong>「できた気」ではなく、テストで確認できたことだけを進捗</strong>として数える</li>
+                  <li>目指すのは、<strong>AIが書いたReactのコードを読んで正しさを判断し、直す指示を出せる</strong>エンジニア</li>
+                </ul>
               </li>
             </ol>
           </article>
