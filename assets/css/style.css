@@ -802,7 +802,7 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 }
 .flow__label {
   margin: 0; color: var(--muted);
-  font-size: 0.875rem; font-weight: 700; letter-spacing: 0.14em;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.14em;
 }
 .flow__step--result .flow__label { color: var(--accent); }
 .flow__text { margin: 0.35rem 0 0; font-size: 0.88rem; line-height: 1.75; }
@@ -814,6 +814,7 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
   background: var(--muted);
 }
 .flow__step--solve .flow__list li::before { background: var(--accent-light); }
+.flow__step--result .flow__list li::before { background: var(--accent); }
 
 /* 成果：喜んでいる人のアイコン */
 .flow__step--result { display: flex; align-items: flex-start; gap: 0.9rem; }

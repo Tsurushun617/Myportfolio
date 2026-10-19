@@ -61,7 +61,7 @@
           <div class="timeline__item">
             <p class="timeline__year">現在</p>
             <p class="timeline__title">人は判断に集中し、AIを業務に組み込む</p>
-            <p class="timeline__desc">人が担うのは重要な判断です。何をAIに任せ、何を人が決め、何をAIにやらせないかを整理し、スキルや共通ルールとして業務の流れに組み込んでいます。</p>
+            <p class="timeline__desc">人が担うのは<strong>重要な判断</strong>です。何をAIに任せ、何を人が決め、何をAIにやらせないかを整理し、<strong>スキルや共通ルールとして業務の流れに組み込んでいます</strong>。</p>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
           さらにAIの活用が進むにつれて、トークン（AIの利用量）の上限にすぐ達してしまうことが頻発するようになりました。
         </p>
         <p class="profile__lead reveal">
-          そこで、Claude Codeの「スキル（定型業務の手順書）」「サブエージェント（役割を限定したAI）」「フック（特定の操作の直前に自動で動く仕組み）」を組み合わせ、繰り返す作業と守るべきルールを仕組みとして固定しました。作業の難しさに合わせてAIのモデルや考える量（エフォート）を切り替え、トークンを無駄に消費しない設計にしています。
+          そこで、Claude Codeの「スキル（定型業務の手順書）」「サブエージェント（役割を限定したAI）」「フック（特定の操作の直前に自動で動く仕組み）」を組み合わせ、<strong>繰り返す作業と守るべきルールを仕組みとして固定</strong>しました。作業の難しさに合わせてAIのモデルや考える量（エフォート）を切り替え、<strong>品質を落とさずAIの利用コストを抑える設計</strong>にしています。
         </p>
 
         <ul class="auto-issues reveal" role="list">
@@ -112,7 +112,7 @@
           <span class="ja">仕組みの全体像</span>
         </div>
         <p class="profile__lead reveal">
-          1つのAIにすべてを任せず、「計画と検収」と「実行」を分けています。メインのAIが依頼を解釈して作業を割り振り、結果を確認してから私に報告します。
+          1つのAIにすべてを任せず、<strong>「計画と検収」と「実行」を分けています</strong>。メインのAIが依頼を解釈して作業を割り振り、<strong>結果を確認してから私に報告</strong>します。
         </p>
 
         <figure class="auto-map reveal">
@@ -189,7 +189,11 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">「指示が来た」の一言で起動し、日付ごとのフォルダに同じ形式で残るように。追加指示も既存のメモに追記され、経緯を後から追えます。</p>
+                  <ul class="flow__list">
+                    <li>「指示が来た」の一言で起動</li>
+                    <li><strong>日付ごとのフォルダに同じ形式で残る</strong></li>
+                    <li>追加指示も既存のメモに追記され、<strong>誰が見ても経緯を追える</strong></li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -225,7 +229,13 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">「ブランチ作って」「プッシュ」など、短い言葉だけで操作できるようになりました。アプリを行き来しなくて済むので集中が途切れず、操作ミスが大幅に減って作業も明らかに速くなっています。並行作業でのブランチの作り忘れや上書き、プッシュ忘れによるデータの消失も解消しました。コミットメッセージを一から考える必要がなくなって書き漏れが減り、作業範囲の念押しも9件から2件に減っています。</p>
+                  <ul class="flow__list">
+                    <li>アプリを行き来しなくて済むので集中が途切れない</li>
+                    <li>操作ミスが大幅に減り、作業も明らかに速くなった</li>
+                    <li>並行作業でのブランチの作り忘れや上書き、プッシュ忘れによる<strong>データ消失のリスクを解消</strong></li>
+                    <li>コミットメッセージの書き漏れが減少</li>
+                    <li>作業範囲の念押しが<strong>9件から2件に減少</strong></li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -257,7 +267,10 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">指示しなくても控えが必ず残るように。人の注意力に頼らず、いつでも修正前に戻せる状態を保てています。</p>
+                  <ul class="flow__list">
+                    <li><strong>指示しなくても控えが必ず残る</strong></li>
+                    <li>人の注意力に頼らず、<strong>本番反映のミスをいつでも戻せる</strong></li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -290,7 +303,10 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">観点ごとに抜けなく確認できるように。チェックは依頼したときだけ動くため、AIの利用量と待ち時間も自分で管理できます。</p>
+                  <ul class="flow__list">
+                    <li><strong>観点ごとに抜けなく確認できる</strong></li>
+                    <li>チェックは依頼したときだけ動くため、<strong>品質を担保しつつ、確認の工数と待ち時間をコントロール</strong>できる</li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -321,7 +337,10 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">反映前に「何を・どこへ」が一覧で分かり、上げ漏れの確認を差分にもとづいて行えるようになりました。</p>
+                  <ul class="flow__list">
+                    <li>反映前に<strong>「何を・どこへ」が一覧で分かる</strong></li>
+                    <li><strong>上げ漏れの確認を差分にもとづいて</strong>行える</li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -351,7 +370,10 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">「今日はここまで」の一言で済むように。スキル化後の24件のうち18件は、この一言だけで完了しています。</p>
+                  <ul class="flow__list">
+                    <li>引き継ぎの説明が短くなった</li>
+                    <li>スキル化後の24件のうち<strong>18件は、「今日はここまで」の一言だけで完了</strong></li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -385,7 +407,10 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">作業に見合ったモデルで動くため、成果物の質を保ちながら、無駄なトークン消費を抑えられるようになりました。定型業務はスキルを呼び出すだけで、作業に合ったモデルとエフォートで動きます。</p>
+                  <ul class="flow__list">
+                    <li>作業に見合ったモデルで動くため、<strong>成果物の質を保ちながら、AIの利用コストを抑えられる</strong></li>
+                    <li>定型業務はスキルを呼び出すだけで、<strong>人が毎回指示しなくても、適切な品質で回る</strong></li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -420,7 +445,11 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text">時間のかかっていた画像の書き出しから圧縮・加工までをAIに任せられるようになり、デザイナーへの画像修正の依頼も大幅に減りました。圧縮後の見た目もAIが確かめるため、画質を保ったまま表示速度に配慮できます。</p>
+                  <ul class="flow__list">
+                    <li>時間のかかっていた画像の書き出しから圧縮・加工までをAIに任せられる</li>
+                    <li><strong>デザイナーへの画像修正の依頼が大幅に減少</strong></li>
+                    <li>圧縮後の見た目もAIが確かめるため、<strong>画質を保ったまま表示速度に配慮</strong>できる</li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -459,7 +488,12 @@
                 </span>
                 <div class="flow__body">
                   <p class="flow__label">成果</p>
-                  <p class="flow__text"><strong>つまずいた項目が記録から自動で浮かび上がり</strong>、何を復習すればよいか迷わなくなりました。最初の習熟度テストは12問中5問でしたが、2回まちがえた「関数が動くタイミング」は、解説記事を経て正解できるようになっています。合格に届かなかった節は再テストに回し、テストに通ったことだけを進捗として数えています。目指しているのは、<strong>AIが書いたReactのコードを読んで正しさを判断し、直す指示を出せるエンジニア</strong>です。</p>
+                  <ul class="flow__list">
+                    <li>つまずきを記録から自動で浮かび上がらせ、何を直すべきかを数字と手順で管理</li>
+                    <li>合格に届かなかった節は再テストに回す</li>
+                    <li><strong>「できた気」ではなく、テストで確認できたことだけを進捗</strong>として数える</li>
+                    <li>目指すのは、<strong>AIが書いたReactのコードを読んで正しさを判断し、直す指示を出せる</strong>エンジニア</li>
+                  </ul>
                 </div>
               </li>
             </ol>
@@ -476,7 +510,7 @@
           <span class="ja">改善の回し方</span>
         </div>
         <p class="profile__lead reveal">
-          仕組みは作って終わりにせず、AIへの依頼履歴を分析して見直しています。約4か月分・2,335件の依頼を分類し、「繰り返している指示」と「AIへの訂正」を洗い出して、優先度の高いものから共通ルールやスキルに反映しました。
+          仕組みは作って終わりにせず、AIへの依頼履歴を分析して見直しています。<strong>約4か月分・2,335件の依頼</strong>を分類し、「繰り返している指示」と「AIへの訂正」を洗い出して、<strong>優先度の高いものから共通ルールやスキルに反映</strong>しました。
         </p>
         <figure class="cycle reveal">
           <ol class="cycle__list" role="list">
