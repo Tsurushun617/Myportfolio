@@ -327,6 +327,8 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 }
 .badge--cat { background: var(--accent); color: #fff; }
 .badge--role { background: var(--base-2); color: var(--muted); }
+.badge--code { background: #1f3a2e; color: #d6f0e0; font-family: ui-monospace, Consolas, monospace; }
+.detail__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .card__title { font-size: 1.25rem; font-family: "Noto Sans JP", sans-serif; }
 .card__desc { font-size: 0.9rem; color: var(--muted); font-family: "Noto Sans JP", sans-serif; line-height: 1.7; }
 .card__more {

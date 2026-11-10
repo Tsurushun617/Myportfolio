@@ -47,6 +47,7 @@
           <div class="card__meta">
             <span class="badge badge--cat">${esc(w.catLabel)}</span>
             <span class="badge badge--role">${esc(w.role)}</span>
+            ${w.code && w.code.length ? `<span class="badge badge--code">ソースコードあり</span>` : ""}
           </div>
           <h3 class="card__title">${esc(w.title)}</h3>
           <p class="card__desc">${esc(w.summary)}</p>
@@ -157,9 +158,12 @@
             <dt>使用技術</dt><dd>${item.tech.map(esc).join(" / ")}</dd>
           </dl>
           ${workLink}
-          <a class="btn btn--primary" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
-            サイトを見る
-          </a>
+          <div class="detail__actions">
+            <a class="btn btn--primary" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+              サイトを見る
+            </a>
+            ${item.code && item.code.length ? `<a class="btn btn--ghost" href="#code-cases-title">ソースコードを見る（${item.code.length}件）</a>` : ""}
+          </div>
         </div>
       </div>
       ${codeHTML(item.code)}`;
@@ -222,9 +226,12 @@
             ${(w.tracking || []).map((t) => `<dt>${esc(t.name)}</dt><dd>${esc(t.work)}</dd>`).join("")}
           </dl>
           ${effortHTML(w.effort)}
-          <a class="btn btn--primary" href="${esc(w.url)}" target="_blank" rel="noopener noreferrer">
-            サイトを見る
-          </a>
+          <div class="detail__actions">
+            <a class="btn btn--primary" href="${esc(w.url)}" target="_blank" rel="noopener noreferrer">
+              サイトを見る
+            </a>
+            ${w.code && w.code.length ? `<a class="btn btn--ghost" href="#code-cases-title">ソースコードを見る（${w.code.length}件）</a>` : ""}
+          </div>
         </div>
       </div>
       ${codeHTML(w.code)}`;

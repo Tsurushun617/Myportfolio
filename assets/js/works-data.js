@@ -165,6 +165,76 @@ function article_collect_headings( $post_id ) {
   </tr>
   <?php endforeach; ?>
 </table>`
+      },
+      {
+        title: "人材募集の記事に、投稿タイプごとのタグを自動で出す",
+        problem: "インタビュー・職場環境・募集企業は、それぞれ別のタクソノミー（分類）を持ちます。タグの出力を3種類のテンプレートに書くと、分類を足すたびに3か所を直すことになります。",
+        approach: "投稿タイプとタクソノミーの対応表を配列で1か所に持ち、現在の投稿タイプから分類を選んで、付いているタームを全件出力します。分類が1つも付いていない記事では get_the_terms() が false を返すため、配列に直してから判定しています。",
+        lang: "PHP",
+        body: `$tags_taxonomyMap = array(
+	'recruit_voice'     => 'voice_cat',
+	'recruit_workplace' => 'workplace_cat',
+	'recruit_company'   => 'company_cat',
+);
+$tags_postType = get_post_type();
+$tags_taxonomy = isset( $tags_taxonomyMap[ $tags_postType ] )
+	? $tags_taxonomyMap[ $tags_postType ]
+	: '';
+$tags_terms = $tags_taxonomy
+	? get_the_terms( get_the_ID(), $tags_taxonomy )
+	: array();
+if ( ! is_array( $tags_terms ) ) {
+	// タームが1つも無い場合、get_the_terms() は array() ではなく false を返す
+	$tags_terms = array();
+}
+?>
+<?php if ( ! empty( $tags_terms ) ) : ?>
+<ul class="tags">
+	<?php foreach ( $tags_terms as $tags_term ) : ?>
+	<li class="tags_item"><?php echo esc_html( $tags_term->name ); ?></li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>`
+      },
+      {
+        title: "パンくずリストを、配列を渡すだけの共通パーツにする",
+        problem: "下層ページごとにパンくずのHTMLを書くと、クラス名や現在地の扱いが少しずつずれていきます。",
+        approach: "表示する項目を配列で受け取り、url を省略した項目を「現在地」として aria-current を付けます。ラベルが空の項目は飛ばし、項目が1つもなければ何も出しません。",
+        lang: "PHP",
+        body: `/*
+ * 使い方
+ *   get_template_part( 'inc', 'breadcrumb', array(
+ *     'items' => array(
+ *       array( 'label' => 'TOP',      'url' => home_url( '/' ) ),
+ *       array( 'label' => '人材募集', 'url' => home_url( '/recruit/' ) ),
+ *       array( 'label' => 'インタビュー' ), // url を省略した項目が現在地になる
+ *     ),
+ *   ) );
+ */
+$crumb_items = ( isset( $args['items'] ) && is_array( $args['items'] ) ) ? $args['items'] : array();
+if ( ! $crumb_items ) {
+	return;
+}
+?>
+<nav class="crumb_wrap" aria-label="パンくず">
+	<ol class="crumb">
+		<?php foreach ( $crumb_items as $crumb_item ) :
+			$crumb_label = isset( $crumb_item['label'] ) ? $crumb_item['label'] : '';
+			$crumb_url   = isset( $crumb_item['url'] ) ? $crumb_item['url'] : '';
+			if ( '' === $crumb_label ) {
+				continue;
+			}
+			?>
+			<li class="crumb_item"<?php echo ( '' === $crumb_url ) ? ' aria-current="page"' : ''; ?>>
+				<?php if ( '' !== $crumb_url ) : ?>
+					<a href="<?php echo esc_url( $crumb_url ); ?>"><?php echo esc_html( $crumb_label ); ?></a>
+				<?php else : ?>
+					<?php echo esc_html( $crumb_label ); ?>
+				<?php endif; ?>
+			</li>
+		<?php endforeach; ?>
+	</ol>
+</nav>`
       }
     ],
     thumb: "assets/images/works/tkf.jpg"
@@ -528,6 +598,64 @@ function shortcode_themeimg($atts) {
     return '<img src="' . esc_url($src) . '"' . $class . $width . $height . ' alt="' . $alt . '" />';
 }
 add_shortcode('themeimg', 'shortcode_themeimg');`
+      },
+      {
+        title: "作業実績を、親カテゴリ→子カテゴリの二段で自動表示する",
+        problem: "作業内容のカテゴリは親と子の二段になっており、カテゴリが増えるたびにリンク一覧を手で直すと、直し忘れや並び順のずれが起きます。",
+        approach: "カスタムタクソノミーの親ターム（parent=0）を順番どおりに取り出し、親ごとに子タームを取得してリンクにします。並び順は管理画面で決めた term_order に従います。タームの名前とURLは esc_html と esc_url で出力します。",
+        lang: "PHP",
+        body: `<?php
+$taxonomy = 'works_cat';
+$taxonomy_obj = get_taxonomy($taxonomy);
+$taxonomy_label = $taxonomy_obj ? $taxonomy_obj->labels->name : '作業内容から探す';
+?>
+<hgroup class="hgroup">
+  <h2 class="h2default"><?php echo esc_html($taxonomy_label); ?></h2>
+</hgroup>
+<?php
+// 親ターム（parent=0）を取得
+$parent_terms = get_terms([
+  'taxonomy' => $taxonomy,
+  'parent' => 0,
+  'hide_empty' => false,
+  'orderby' => 'term_order',
+  'order' => 'ASC',
+]);
+if (!empty($parent_terms) && !is_wp_error($parent_terms)) :
+  foreach ($parent_terms as $parent_term) :
+    // 子タームを取得
+    $child_terms = get_terms([
+      'taxonomy' => $taxonomy,
+      'parent' => $parent_term->term_id,
+      'hide_empty' => false,
+      'orderby' => 'term_order',
+      'order' => 'ASC',
+    ]);
+    echo '<h3 class="h3second h3default">' . esc_html($parent_term->name) . '</h3>';
+    if (!empty($child_terms) && !is_wp_error($child_terms)) :
+      echo '<ul class="category-list mb3em">';
+      foreach ($child_terms as $child_term) :
+        $term_link = get_term_link($child_term);
+        echo '<li class="category-item"><a href="' . esc_url($term_link) . '">' . esc_html($child_term->name) . '</a></li>';
+      endforeach;
+      echo '</ul>';
+    endif;
+  endforeach;
+endif;
+?>`
+      },
+      {
+        title: "個別ページが不要なカスタム投稿を、一覧へ振り分ける",
+        problem: "社員紹介は一覧ページだけで見せる設計でしたが、個別ページのURLを直接開くと、中身のないページが表示されてしまいます。",
+        approach: "template_redirect で、社員紹介の個別ページが開かれたときだけ一覧ページへリダイレクトします。テンプレートを作らずに済み、検索から個別URLに入られても一覧へ戻せます。",
+        lang: "PHP",
+        body: `// 社員紹介（member）の個別ページを一覧ページにリダイレクト
+add_action('template_redirect', function() {
+  if (is_singular('member')) { // 'member'はカスタム投稿タイプのスラッグ
+    wp_redirect(get_post_type_archive_link('member'));
+    exit;
+  }
+});`
       }
     ],
     thumb: "assets/images/works/matsuda-motors.jpg"
@@ -554,6 +682,84 @@ add_shortcode('themeimg', 'shortcode_themeimg');`
     summary: "ライオン靴クリーム本舗のOEM紹介ページ。ShopifyのLiquidテンプレートで実装し、BtoBの問い合わせ導線を設計。",
     description: "ライオン靴クリーム本舗のOEM事業を紹介するページ。Shopify（Liquid）上で、BtoB向けに事業の強みと問い合わせ導線を整理して一人で実装しました。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "Shopify", "Liquid"],
+    code: [
+      {
+        title: "Shopifyのブログ記事を、ページに最新3件だけ出す",
+        problem: "OEMページは独立したページのため、コラムの最新記事を出すには、記事のタグ・日付・画像を自分で組む必要がありました。",
+        approach: "ブログのハンドルから記事を3件だけ取り出します。タグは先頭の1つだけ、アイキャッチ画像がない記事はダミー画像に差し替え、記事が1件もないときは else の側で案内文を出します。日付は datetime 属性にも入れています。",
+        lang: "Liquid",
+        body: `{% assign oem_blog = blogs['column'] %}
+{% for article in oem_blog.articles limit: 3 %}
+  <li class="article-item">
+    <a href="{{ article.url }}" class="article-link">
+      <h3 class="article-title">{{ article.title }}</h3>
+      <div class="article-datebox">
+        {% if article.tags.size > 0 %}
+          <span class="article-tag">{{ article.tags | first }}</span>
+        {% endif %}
+        <time class="article-date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          {{ article.published_at | date: '%Y/%m/%d' }}
+        </time>
+      </div>
+      <div class="imgbox">
+        {% if article.image %}
+          <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.image.alt | escape }}">
+        {% else %}
+          <img src="{{ 'dummy.png' | asset_url }}" alt="{{ article.title | escape }}">
+        {% endif %}
+      </div>
+    </a>
+  </li>
+{% else %}
+  {% comment %}記事がない場合{% endcomment %}
+  <li class="article-item">
+    <p class="article-link center">記事がまだ公開されていません。</p>
+  </li>
+{% endfor %}`
+      },
+      {
+        title: "「よくある質問」を、JavaScriptなしの開閉にする",
+        problem: "質問が9件あり、すべて開いたままだとページが長くなり、必要な答えを探しにくくなります。",
+        approach: "HTMLの details と summary だけで開閉を作りました。JavaScriptを足さないため読み込みが軽く、キーボード操作や読み上げにもそのまま対応します。質問の追加は、1ブロックを複製するだけです。",
+        lang: "HTML",
+        body: `<div class="faq-box">
+  <details class="details">
+    <summary class="question">最小ロットや納期はどのくらいですか？</summary>
+    <p class="answer">最小100個から対応しております。…</p>
+  </details>
+  <details class="details">
+    <summary class="question">光沢や香りなど、仕上がりのカスタマイズは可能ですか？</summary>
+    <p class="answer">ご要望を伺い、配合に反映のうえ試作品を製造いたします。</p>
+  </details>
+  <!-- 以降、同じ構造で9件 -->
+</div>`
+      },
+      {
+        title: "問い合わせボタンを、ページの途中から出して追従させる",
+        problem: "ページを開いた直後から問い合わせボタンを出すと、最初に見せたい内容の邪魔になっていました。",
+        approach: "ページの途中に目印の要素を置き、それが画面に入ったときに初めてボタンを表示します。目印の要素がないページでは何もしないようにして、エラーを防いでいます。",
+        lang: "JavaScript",
+        body: `document.addEventListener('DOMContentLoaded', function () {
+  const trigger = document.getElementById('js-contact-trigger');
+  const contactButton = document.querySelector('.contact-button');
+
+  if (!trigger || !contactButton) return;
+
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          contactButton.classList.add('is-visible');
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px' }
+  );
+
+  observer.observe(trigger);
+});`
+      }
+    ],
     tracking: ANALYTICS_SETUP,
     thumb: "assets/images/works/taniguchi-oem.jpg"
   },
@@ -565,8 +771,119 @@ add_shortcode('themeimg', 'shortcode_themeimg');`
     role: "単独制作",
     url: "https://g-eight.info/",
     summary: "東京・池袋を拠点にアスベスト除去・調査と内装解体工事を専門とする株式会社ジーエイトのコーポレートサイト。",
-    description: "アスベスト除去・含有調査・内装解体工事を手がける株式会社ジーエイトのコーポレートサイト。リフォーム前の安全確認を検討する住宅所有者や建設業者に向けて、サービス内容・施工実績・無料相談の導線をわかりやすく整理し、単独で制作しました。",
+    description: "アスベスト除去・含有調査・内装解体工事を手がける株式会社ジーエイトのコーポレートサイト。リフォーム前の安全確認を検討する住宅所有者や建設業者に向けて、サービス内容・施工実績・無料相談の導線をわかりやすく整理し、単独で制作しました。テーマへのコミットは、マージを除いてすべて私のものです。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    code: [
+      {
+        title: "ページ内リンクへの移動を、ライブラリなしでなめらかにする",
+        problem: "他ページから「#price」のようなリンクで開くと、目的の位置へ一瞬で飛んでしまい、どこへ移動したのかが分かりにくくなっていました。",
+        approach: "読み込み時のハッシュを取り出し、requestAnimationFrame で400msかけて移動させます。加速と減速をつける式（easeInOutQuad）だけを自前で持ち、プラグインは使っていません。",
+        lang: "JavaScript",
+        body: `document.addEventListener("DOMContentLoaded", () => {
+  const urlHash = location.hash;
+  if (urlHash) {
+    window.scrollTo(0, 0); // ブラウザの自動ジャンプを打ち消す
+    setTimeout(() => {
+      const target = document.querySelector(urlHash);
+      if (target) {
+        const speed = 400;
+        const start = window.scrollY;
+        const end = target.getBoundingClientRect().top + window.scrollY;
+        const startTime = performance.now();
+        const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+        const step = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / speed, 1);
+          window.scrollTo(0, start + (end - start) * easeInOutQuad(progress));
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    }, 100);
+  }
+});`
+      },
+      {
+        title: "スマホの固定メニューに、ページ最下部が隠れないようにする",
+        problem: "スマートフォンでは画面下に電話・問い合わせの固定メニューが出るため、フッターの最後の行が固定メニューの裏に隠れていました。",
+        approach: "固定メニューの高さを実測し、その分だけ body の下に余白を足します。幅が変わったときも測り直すので、画面を回転しても隠れません。750pxを超えたら余白を戻します。",
+        lang: "JavaScript",
+        body: `const applyFooterMargin = () => {
+  const fMenu = document.querySelector(".f_menu");
+  if (fMenu && window.matchMedia("(max-width: 750px)").matches) {
+    document.body.style.marginBottom = fMenu.offsetHeight + "px";
+  } else {
+    document.body.style.marginBottom = "";
+  }
+};
+applyFooterMargin();
+window.addEventListener("resize", applyFooterMargin);`
+      },
+      {
+        title: "ハンバーガーメニューを、読み上げにも対応して開閉する",
+        problem: "ボタンの見た目だけを切り替えると、スクリーンリーダーを使う人には、メニューが開いているのか閉じているのかが伝わりません。",
+        approach: "aria-expanded と aria-label を、開閉のたびに同じ処理で更新します。メニュー内のリンクを押したときはドロワーを閉じ、ドロップダウン用のリンクだけは閉じないようにしています。メニューが開いている間は body に fixed を付けて、背景のスクロールを止めます。",
+        lang: "JavaScript",
+        body: `document.addEventListener("DOMContentLoaded", function () {
+  const menuButton = document.getElementById("js-buttonHamburger");
+  const navMenu = document.querySelector(".gnav");
+  const body = document.body;
+
+  if (!menuButton || !navMenu) return;
+
+  function closeDrawer() {
+    menuButton.setAttribute("aria-expanded", false);
+    menuButton.setAttribute("aria-label", "メニューを開く");
+    navMenu.classList.remove("active");
+    body.classList.remove("fixed", "is-drawerActive");
+  }
+
+  menuButton.addEventListener("click", function () {
+    const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+    const newState = !isExpanded;
+
+    menuButton.setAttribute("aria-expanded", newState);
+    navMenu.classList.toggle("active", newState);
+    body.classList.toggle("fixed", newState);
+    body.classList.toggle("is-drawerActive", newState);
+    menuButton.setAttribute("aria-label", newState ? "メニューを閉じる" : "メニューを開く");
+  });
+
+  // メニュー内リンクを押したらドロワーを閉じる（750px以下）
+  navMenu.addEventListener("click", function (e) {
+    const link = e.target.closest("a");
+    if (!link) return;
+    if (link.id === "dropdown-link") return; // ドロップダウンは閉じない
+    if (menuButton.getAttribute("aria-expanded") === "true") {
+      closeDrawer();
+    }
+  });
+});`
+      },
+      {
+        title: "セクションが画面に入ったときに、下からふわっと表示する",
+        problem: "スクロールのイベントで位置を測り続けると処理が重くなり、ページ全体の動きがぎこちなくなります。",
+        approach: "IntersectionObserver で、セクションが20%見えたときにだけ is-visible を付けます。動きそのものは CSS 側に持たせ、JavaScriptは付け外しだけにしています。",
+        lang: "JavaScript",
+        body: `// main内の .fade-in が画面に入ったら .is-visible を付与し、下からフワッと表示
+// 発火タイミングは threshold で調整（0.2 = 20%見えたら）
+// アニメーション内容は CSS の .fade-in.is-visible を編集する
+const fadeInSections = document.querySelectorAll("main .fade-in");
+if (fadeInSections.length > 0) {
+  const fadeInObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    },
+    { threshold: 0.2 },
+  );
+  fadeInSections.forEach((section) => fadeInObserver.observe(section));
+}`
+      }
+    ],
     tracking: ANALYTICS_SETUP,
     thumb: "assets/images/works/g-eight.jpg"
   },
