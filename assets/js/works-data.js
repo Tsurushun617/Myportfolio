@@ -485,11 +485,116 @@ add_action('pre_get_posts', 'column_archive_query');`
     title: "佐藤燃料（紀州備長炭）",
     category: "website",
     catLabel: "Webサイト",
-    role: "チーム制作",
+    role: "チーム制作（下層ページの実装と公開後の改修を担当）",
     url: "https://bincho.co.jp/",
-    summary: "紀州備長炭をはじめとする木炭の専門商社サイト。飲食店向けの商品ラインナップと品質のこだわりを発信。",
-    description: "紀州備長炭など国産・輸入木炭を扱う専門商社のWebサイト。飲食店（蒲焼・串焼き店など）の業務用ニーズに向けて、炭の種類や特長をわかりやすく整理しました。チームでの共同制作。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    summary: "紀州備長炭など国産・輸入木炭を扱う専門商社のWordPressサイト。下層ページの実装と公開後の改修を担当し、スマホの「戻る」で先頭に戻る不具合を履歴から原因を特定して直しました。",
+    description: "紀州備長炭など国産・輸入木炭を扱う専門商社・佐藤燃料のWordPressサイトです。社内のベーステーマを土台に、別のメンバーと分担して制作しました。案件として使い始めた2026年5月以降、マージを除くコミット46件のうち34件が私のものです（うち1件は別メンバーの作業分をまとめたもの）。公開前は商品一覧・商品詳細・FAQ・お問い合わせ・会社概要などのページを実装し、公開後は修正の多くを受け持ちました。スマートフォンで「戻る」を押すと毎回ページの先頭に戻る不具合は、git の履歴をたどり、2022年に別案件のベーステーマへ入った処理が原因だと突き止めて直しています。ほかに、表の見出し固定の不具合の修正、日本語の禁則処理、管理画面の一覧への更新日の追加、SNSアイコンの設置を行いました。",
+    tech: ["HTML", "CSS / Sass", "JavaScript", "WordPress", "PHP"],
+    code: [
+      {
+        title: "スマホの「戻る」でページの先頭に戻ってしまう不具合を、履歴から原因を突き止めて直す",
+        problem: "スマートフォンで商品の「詳しくみる」を押してから「戻る」を押すと、見ていた位置ではなく、毎回ページの一番上が表示されていました。パソコンでは起きませんでした。",
+        approach: "スマートフォンの「戻る」はページを保存した状態から復元する（bfcache）ため、そのときだけ強制リロードする処理が動き、ブラウザの位置の復元が打ち消されていました。git の履歴をたどると、この処理は2022年に別案件のベーステーマへ入ったもので、当時のフォームの都合によるものでした。今のフォームは外部サービスの埋め込みで、その前提はなくなっています。リロードをやめ、復元時はメニューの開閉状態だけを元に戻すようにしました。",
+        lang: "PHP / JavaScript（修正前 → 修正後）",
+        body: `<!-- 修正前：復元されるたびにリロードし、スクロール位置が失われていた -->
+<script type="text/javascript">
+  window.onpageshow = function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  };
+</script>
+
+<!-- 修正後：リロードせず、メニューの状態だけを戻す -->
+<script>
+  // bfcache 復元時（スマホの「戻る」など）のドロワー状態リセット
+  // ここで location.reload() をしてはいけない：リロードするとブラウザ標準の
+  // スクロール位置復元が打ち消され、戻ったときに必ず最上部が表示される
+  // NOTE: body の fixed を外す処理は必須。position:fixed のまま復元されるとスクロール不能になる
+  window.addEventListener('pageshow', function(event) {
+    if (!event.persisted) return;
+    document.querySelector('.header')?.classList.remove('active');
+    document.body.classList.remove('fixed');
+  });
+</script>`
+      },
+      {
+        title: "Sassのインデントのずれで、表の見出しが固定されていなかったのを直す",
+        problem: "横にスクロールする表で、見出しを固定する指定（position: sticky）が効かず、横スクロールしたときに左の列が黒く塗られて見えていました。",
+        approach: "Sassはインデントで入れ子を表すため、プロパティの字下げが1段浅いと、見出しのセルではなく親の要素に指定が付きます。字下げを直して指定を見出しのセルに付け、左の列の背景は半透明をやめて、テーマ色を白と混ぜた不透明な色にしました。",
+        lang: "Sass（修正前 → 修正後）",
+        body: `// 修正前：プロパティが thead th の中に入っておらず、親の .table-sticky に付いていた
+.table-sticky
+  +ww($break)
+    thead th
+    position: sticky
+    top: 0
+    z-index: 2
+    background-color: $color-theme
+    tbody th
+    position: sticky
+    left: 0
+    z-index: 1
+    background-color: rgba($color-theme, .2)
+
+// 修正後：見出しのセルに指定を付け、左列は不透明な色にする
+.table-sticky
+  +ww($break)
+    thead th
+      position: sticky
+      top: 0
+      z-index: 1
+      background-color: $color-theme
+    tbody th
+      left: 0
+      z-index: 1
+      background-color: mix(white, $color-theme, 80%)
+    thead th:first-child
+      z-index: 3
+      background-color: $color-theme`
+      },
+      {
+        title: "管理画面の一覧に「更新日」の列を足し、並べ替えられるようにする",
+        problem: "商品・お知らせ・ブログの一覧には公開日しかなく、どの記事を最近直したのかが管理画面から分かりませんでした。",
+        approach: "対象の投稿タイプを配列で1か所に持ち、それぞれの一覧に「更新日」の列を公開日の右に差し込みます。列の並べ替えにも対応させました。投稿タイプを増やすときは、配列に1語足すだけです。",
+        lang: "PHP",
+        body: `// カスタム投稿タイプ一覧に更新日列を追加
+$theme_modified_date_post_types = array( 'products', 'news', 'blog' );
+
+function theme_add_modified_column( $columns ) {
+  $new_columns = array();
+
+  foreach ( $columns as $key => $label ) {
+    $new_columns[ $key ] = $label;
+
+    if ( $key === 'date' ) {
+      $new_columns['modified'] = '更新日';
+    }
+  }
+
+  return $new_columns;
+}
+
+function theme_show_modified_column( $column, $post_id ) {
+  if ( $column !== 'modified' ) {
+    return;
+  }
+
+  echo esc_html( get_post_modified_time( 'Y年n月j日 g:i A', false, $post_id ) );
+}
+
+function theme_sortable_modified_column( $columns ) {
+  $columns['modified'] = 'modified';
+  return $columns;
+}
+
+foreach ( $theme_modified_date_post_types as $post_type ) {
+  add_filter( "manage_{$post_type}_posts_columns", 'theme_add_modified_column' );
+  add_action( "manage_{$post_type}_posts_custom_column", 'theme_show_modified_column', 10, 2 );
+  add_filter( "manage_edit-{$post_type}_sortable_columns", 'theme_sortable_modified_column' );
+}`
+      }
+    ],
     tracking: ANALYTICS_SETUP,
     thumb: "assets/images/works/bincho.jpg"
   },
@@ -1037,8 +1142,88 @@ if (fadeInSections.length > 0) {
     role: "単独制作",
     url: "https://i-icf.co.jp/inochiryo/",
     summary: "製造工場・建設現場向け熱中症対策ブース「命涼（らく冷えブース）」の商品LP。ブースの特長と問い合わせ導線を単独で設計・制作。",
-    description: "コンフォートフォーム株式会社が開発した熱中症対策ブース「命涼（らく冷えブース）」の紹介ランディングページ。製造工場・建設現場を主なターゲットに、独自素材「エアインフォーム」の特長や「誰でも・どこでも・すぐ設置できる」というコンセプトを訴求する構成を単独で制作しました。",
+    description: "コンフォートフォーム株式会社が開発した熱中症対策ブース「命涼（らく冷えブース）」の紹介ランディングページ。製造工場・建設現場を主なターゲットに、独自素材「エアインフォーム」の特長や「誰でも・どこでも・すぐ設置できる」というコンセプトを訴求する構成を単独で制作しました。最初のコミット（2025年9月）の時点では、CSSを1つのHTMLに書き込んだ画像のない版でした。最終版（2026年2月）では、スタイルをSCSSの6つのパーシャルに分け、JavaScriptを別ファイルにし、画像を64か所に組み込みました。問い合わせ・資料ダウンロードの各ページと完了ページも制作しています。",
     tech: ["HTML", "CSS / SCSS", "JavaScript"],
+    code: [
+      {
+        title: "他の製品との比較を、意味の通る表で組む",
+        problem: "「なぜ命涼を選ぶのか」を、ビニールテント・プレハブ小屋・簡易パーテーションと比べて見せる必要がありました。記号（◎○△×）だけを画像で並べると、読み上げでは何も伝わりません。",
+        approach: "見出しの行は thead、各行の項目名は tbody の th にして、表として読めるようにしました。記号の画像には「二重丸」などの alt を付け、その横に理由を文字で書いています。計算の前提は caption に入れました。スマートフォンでは横にスクロールし、スクロールできることをヒントで示します。",
+        lang: "HTML",
+        body: `<div class="table-wrapper js-scroll">
+  <table class="comparison-table" aria-label="工場特化の優位性比較表">
+    <caption class="table-caption">※900×1800mm(2人用)サイズで計算</caption>
+    <thead>
+      <tr>
+        <th class="th-blue">比較項目</th>
+        <th class="th-red">命涼</th>
+        <th class="th-blue">ビニールテント</th>
+        <th class="th-blue">プレハブ小屋</th>
+        <th class="th-blue">簡易パーテーション</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="row-header">工場内設置</th>
+        <td class="td-red">
+          <img src="images/icon_reason-nijumaru.png" alt="二重丸" class="icon">
+          <span>防炎認定</span>
+        </td>
+        <td>
+          <img src="images/icon_reason-batsu.png" alt="バツ" class="icon">
+          <span>静電気リスク</span>
+        </td>
+        <td>
+          <img src="images/icon_reason-sankaku.svg" alt="三角" class="icon">
+          <span>工事必要</span>
+        </td>
+        <!-- 以降、同じ構造で項目が続く -->
+      </tr>
+    </tbody>
+  </table>
+</div>`
+      },
+      {
+        title: "ハンバーガーメニューの開閉を、読み上げにも伝える",
+        problem: "メニューの開閉を見た目だけで切り替えると、スクリーンリーダーを使う人には、今メニューが開いているのかが伝わりません。",
+        approach: "開閉のたびに aria-expanded と aria-label を書き換え、メニュー内のリンクを押したときも閉じた状態に戻します。ボタンやメニューが見つからないページでは何もしません。",
+        lang: "JavaScript",
+        body: `document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerBtn = document.getElementById('js-hamburger');
+  const globalNav = document.getElementById('global-nav');
+
+  if (hamburgerBtn && globalNav) {
+    hamburgerBtn.addEventListener('click', function() {
+      const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        // メニューを閉じる
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
+        hamburgerBtn.classList.remove('is-active');
+        globalNav.classList.remove('is-active');
+      } else {
+        // メニューを開く
+        hamburgerBtn.setAttribute('aria-expanded', 'true');
+        hamburgerBtn.setAttribute('aria-label', 'メニューを閉じる');
+        hamburgerBtn.classList.add('is-active');
+        globalNav.classList.add('is-active');
+      }
+    });
+
+    // メニュー内のリンクをクリックしたらメニューを閉じる
+    globalNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function() {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
+        hamburgerBtn.classList.remove('is-active');
+        globalNav.classList.remove('is-active');
+      });
+    });
+  }
+});`
+      }
+    ],
     thumb: "assets/images/works/inochiryo.jpg"
   },
   {
@@ -1058,11 +1243,92 @@ if (fadeInSections.length > 0) {
     title: "吾嬬製作所 トレー商品LP",
     category: "lp",
     catLabel: "LP",
-    role: "単独制作",
+    role: "単独制作（公開後の写真更新は別メンバー）",
     url: "https://azmas.co.jp/tray_lp/",
     summary: "墨田区で創業100年超の真空成型メーカー・吾嬬製作所のトレー商品LP。小ロット・オーダーメイドの強みを訴求。",
-    description: "株式会社吾嬬製作所のプラスチックトレー・真空成型試作を紹介するランディングページ。創業1924年の技術力と、小ロット・オーダーメイドへの対応力をファーストビューから問い合わせ導線まで一貫して訴求する構成を、単独制作しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript"],
+    description: "株式会社吾嬬製作所のプラスチックトレー・真空成型試作を紹介するランディングページ。創業1924年の技術力と、小ロット・オーダーメイドへの対応力をファーストビューから問い合わせ導線まで一貫して訴求する構成を、WordPressの固定ページテンプレートとして制作しました。LPのテンプレートは916行のうち862行、CSSは2017行のうち1966行、Sassはすべての行が私のコミットです。公開後の写真の更新は別のメンバーが行いました。公開後は、Safariでだけフォントが崩れる不具合を直し、画像で作られていた吹き出しの文章をテキストに置き換えています。",
+    tech: ["HTML", "CSS / Sass", "JavaScript", "WordPress", "PHP", "Swiper"],
+    code: [
+      {
+        title: "Safariでだけフォントが崩れる不具合を直す",
+        problem: "Safariで見ると、電話番号などの太字のフォントが崩れて表示されていました。",
+        approach: "太さを書体名に含めた「Noto Sans JP Black」を font-family に書いていたのが原因でした。書体名で太さを指定すると、環境によっては一致する書体が見つからず、別の書体に置き換わります。書体名は「Noto Sans JP」にし、太さは font-weight: 900 で指定するように分けました。",
+        lang: "Sass（修正前 → 修正後）",
+        body: `// 修正前：書体名に太さを含めていた
+a[href*="tel:"]
+  font-size: 3vw
+  font-family: "Noto Sans JP Black"
+
+// 修正後：書体名と太さを分ける
+a[href*="tel:"]
+  font-size: 3vw
+  font-family: "Noto Sans JP"
+  font-weight: 900`
+      },
+      {
+        title: "画像で作られていた吹き出しの文章を、テキストに置き換える",
+        problem: "問い合わせを促す吹き出しが、文章ごと1枚の画像になっていました。文言を直すたびに画像を作り直す必要があり、長い文章を alt に入れて補っていました。",
+        approach: "アイコンだけを画像に残し、文章は p 要素のテキストにしました。文言の修正はHTMLの書き換えだけで済み、読み上げにも本文としてそのまま伝わります。",
+        lang: "PHP（修正前 → 修正後）",
+        body: `<!-- 修正前：文章ごと画像。PC用とSP用の2枚を用意していた -->
+<div class="others-cta scroll-up">
+  <picture>
+    <source media="(max-width: 750px)" srcset="[theme]/images/tray/others-cta_Sp.png">
+    <img src="[theme]/images/tray/others-cta.png"
+      alt="「こんなのできる？」があれば、ぜひお問い合わせください！事例に掲載していない商品も多数ございます。お問い合わせいただければ、似た事例の試作品・解決事例もご紹介できます。" loading="lazy">
+  </picture>
+</div>
+
+<!-- 修正後：アイコンだけ画像にし、文章はテキストにする -->
+<div class="others-comment scroll-up">
+  <div class="cta-icon01">
+    <img src="[theme]/images/tray/icon_flow.png" alt="「こんなのできる？」" loading="lazy">
+  </div>
+  <div class="cta-icon02">
+    <img src="[theme]/images/tray/icon02-resize.png" alt="" loading="lazy">
+  </div>
+  <div class="others-cta">
+    <div class="others-cta-item">
+      <p class="others-cta-title">があれば、<br class="pcNone">ぜひお問い合わせください！</p>
+      <p class="others-cta-subtitle">
+        事例に掲載していない商品も多数ございます。<br class="spNone">お問い合わせいただければ、似た事例の試作品・解決事例もご紹介できます。
+      </p>
+    </div>
+  </div>
+</div>`
+      },
+      {
+        title: "2024年に書いたスクロール演出を、今の書き方で見直す",
+        problem: "このLPで2024年に書いた処理は、スクロールのたびに、スクロールを監視する処理をさらに追加で登録していました。スクロールするほど同じ処理が増え、そのたびに全要素の位置を測り直します。",
+        approach: "今なら IntersectionObserver で、要素が画面に入ったときだけ処理します。2026年のG8では、この書き方で実装しています。下の「見直し後」は比較のために書いたもので、このLPにはまだ適用していません。",
+        lang: "JavaScript（2024年の実装 → 見直し後）",
+        body: `// 2024年の実装：scroll のたびに、scroll と load の処理を追加で登録していた
+window.addEventListener('scroll', function() {
+  var scrollAnimationElm = document.querySelectorAll('.scroll-up');
+  var scrollAnimationFunc = function() {
+    for (var i = 0; i < scrollAnimationElm.length; i++) {
+      var triggerMargin = 80;
+      if (window.innerHeight > scrollAnimationElm[i].getBoundingClientRect().top + triggerMargin) {
+        scrollAnimationElm[i].classList.add('on');
+      }
+    }
+  };
+  window.addEventListener('load', scrollAnimationFunc);
+  window.addEventListener('scroll', scrollAnimationFunc);
+});
+
+// 見直し後（未適用）：画面に入った要素にだけクラスを付け、付けたら監視をやめる
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('on');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { rootMargin: '0px 0px -80px 0px' });
+document.querySelectorAll('.scroll-up').forEach((el) => observer.observe(el));`
+      }
+    ],
     thumb: "assets/images/works/azmas-tray.jpg"
   }
 ];
