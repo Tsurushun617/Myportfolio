@@ -665,11 +665,153 @@ add_action('template_redirect', function() {
     title: "Cinematic",
     category: "website",
     catLabel: "Webサイト",
-    role: "チーム制作",
+    role: "チーム制作（一部ページと公開後の改修を担当）",
     url: "https://www.cinematic.jp/",
-    summary: "結婚式向け映像制作を専門とする株式会社シネマチックのコーポレートサイト。プロフィールムービーやエンドロールなど多彩なサービスをチームで制作。",
-    description: "結婚式向け映像制作の専門会社・株式会社シネマチックのWebサイト。プロフィールムービー・オープニングムービー・エンドロールなど幅広いサービスを紹介するコーポレートサイトを、チームの一員として制作しました。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "Shopify", "Liquid"],
+    summary: "結婚式向け映像制作のShopifyサイト。チーム制作のうち、申込規約ページとコラム記事テンプレートの制作、公開後のトップ・ヘッダー・ロケーション撮影LPの改修を担当しました。",
+    description: "結婚式向け映像制作の専門会社・株式会社シネマチックのShopifyサイトです。テーマの土台と多くのページは別のメンバーが制作しました。私が担当したのは、申込規約ページ、コラム記事のテンプレート、公開後のトップページ・ヘッダー・ロケーション撮影LPの改修です（マージを除くコミット28件のうち16件。うち1件は最初のテーマ取り込み）。2025年は申込規約ページを受け持ち、HTMLに直接書かれていた style 属性を60か所から6か所に減らしました。外部ライブラリで開いていた画像のポップアップは、CSSだけで開閉する作りに置き換えています。コラム記事のテンプレートには、お客様の声の記事にだけ挙式日とお客様名を出す仕組みを加えました。2026年は、トップのメインビジュアルに動画の再生・停止ボタンと人気プランへの導線を加え、スマートフォンで横にスクロールする料金表にスクロールのヒントを付けました。ヘッダーのメニュー表記の変更と、LPのプラン・料金の更新も行っています。2026年の改修はCursorで進め、AIに読ませるコーディング規約のファイルもリポジトリに追加しました。",
+    tech: ["HTML", "CSS / Sass", "JavaScript", "jQuery", "Shopify", "Liquid", "Cursor"],
+    code: [
+      {
+        title: "画像のポップアップを、外部ライブラリからCSSだけの作りに置き換える",
+        problem: "納品イメージの画像を開くために、ページの途中で外部のポップアップ用ライブラリと、テーマ全体ですでに読み込んでいるjQuery（別のバージョン）をもう一度読み込んでいました。1枚の画像を見せるために、読み込みが二重になっていました。",
+        approach: "非表示のチェックボックスと label を使い、チェックが入ったときだけ CSS でモーダルを表示する作りにしました。開く・閉じるにJavaScriptは使っていません。外部ライブラリの読み込みはなくなりました。",
+        lang: "Liquid（修正前 → 修正後）",
+        body: `<!-- 修正前：画像1枚のために、外部ライブラリとjQueryをページ内で読み込んでいた -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" defer></script>
+<a href="{{ 'thumbnail.png' | asset_url }}" data-lightbox="group" class="linkbox spNone">
+  納品イメージはこちら
+</a>
+
+<!-- 修正後：チェックボックスの状態だけで開閉する -->
+<input type="checkbox" id="modal-toggle" class="modal-toggle">
+<label for="modal-toggle" class="linkbox">納品イメージはこちら</label>
+<div class="modal">
+  <div class="modal-content">
+    <label for="modal-toggle" class="modal-close">&times;</label>
+    <h2 class="h2default">データ納品イメージ</h2>
+    <div class="modal-body">
+      <img src="{{ 'legal_modal.png' | asset_url }}" alt="データ納品イメージ">
+    </div>
+  </div>
+</div>
+
+// Sass：チェックが入ったときだけ表示する
+input.modal-toggle
+  display: none
+.modal
+  position: fixed
+  inset: 0
+  background: rgba(0, 0, 0, 0.8)
+  opacity: 0
+  visibility: hidden
+  transition: all 0.3s ease
+  .modal-toggle:checked ~ &
+    opacity: 1
+    visibility: visible`
+      },
+      {
+        title: "モーダルの外側を押したら閉じる",
+        problem: "CSSだけの作りでは、閉じるボタン（×）を押す以外にモーダルを閉じる方法がありませんでした。",
+        approach: "背景を押したときだけ、チェックボックスを外して閉じる処理を足しました。押した場所が画像などの中身の中なら何もしません。開閉の状態はチェックボックスが持ったままなので、CSSの作りは変えていません。",
+        lang: "JavaScript",
+        body: `// モーダルウィンドウの制御
+document.addEventListener('DOMContentLoaded', function() {
+  const modalToggles = document.querySelectorAll('.modal-toggle');
+
+  modalToggles.forEach(function(toggle) {
+    const modal = toggle.nextElementSibling.nextElementSibling; // .modal要素
+
+    // モーダルの背景部分をクリックした時の処理
+    modal.addEventListener('click', function(e) {
+      // モーダルコンテンツ部分（.modal-content）をクリックした場合は何もしない
+      if (e.target.closest('.modal-content')) {
+        return;
+      }
+      // 背景部分をクリックした場合はモーダルを閉じる
+      toggle.checked = false;
+    });
+  });
+});`
+      },
+      {
+        title: "自動再生の動画に、再生・停止ボタンを付ける",
+        problem: "トップのメインビジュアルの動画は自動でくり返し再生され、見る人が止める手段がありませんでした。",
+        approach: "再生・停止を切り替えるボタンを置き、ボタンの読み上げ名（aria-label）を「次に起きること」に合わせて書き換えます。ボタン以外の理由で動画が止まったときも、動画の play / pause イベントを監視してボタンの状態をそろえます。見た目の切り替えは data-video-state を手がかりに CSS で行います。",
+        lang: "Liquid / JavaScript",
+        body: `<div class="mv-video-controls" role="group" aria-label="トップ動画の再生コントロール">
+  <button type="button" class="mv-video-btn" data-video-action="toggle"
+    aria-controls="mainvisual-video" aria-label="再生">
+    <span class="mv-video-btn__icon">
+      <img src="{{ 'icon_play-pause.svg' | asset_url }}" alt="" aria-hidden="true">
+    </span>
+  </button>
+</div>
+<script>
+  (() => {
+    const root = document.getElementById('mainvisual');
+    if (!root) return;
+
+    const video = root.querySelector('#mainvisual-video');
+    const toggleBtn = root.querySelector('[data-video-action="toggle"]');
+    if (!video || !toggleBtn) return;
+
+    // 動画の状態に合わせて、ボタンのラベルと状態の属性を更新
+    const updateState = () => {
+      const isPaused = video.paused;
+      // 読み上げ：次に何が起こるかをラベルに設定
+      toggleBtn.setAttribute('aria-label', isPaused ? '再生' : '停止');
+      // スタイリング用：CSSでアイコンを切り替える
+      toggleBtn.setAttribute('data-video-state', isPaused ? 'paused' : 'playing');
+    };
+
+    updateState();
+
+    // 手動操作や自動再生の停止など、動画側の変化にもボタンを同期
+    video.addEventListener('play', updateState);
+    video.addEventListener('pause', updateState);
+
+    toggleBtn.addEventListener('click', async () => {
+      try {
+        if (video.paused) {
+          await video.play();
+        } else {
+          video.pause();
+        }
+      } catch (e) {
+        console.error('[mainvisual-video] Toggle failed:', e);
+      }
+    });
+  })();
+</script>`
+      },
+      {
+        title: "「お客様の声」の記事にだけ、挙式日とお客様名を出す",
+        problem: "コラムとお客様の声は同じ記事テンプレートを使っています。お客様の声にだけ必要な挙式日やお客様名を本文に手で書くと、記事ごとに書き方がばらつきます。",
+        approach: "Shopifyのメタフィールド（記事ごとの追加項目）に挙式日とお客様名を持たせ、ブログが「お客様の声」のときだけ出力します。値が入っていない項目は表示しません。挙式日は日付の形式をテンプレート側でそろえます。",
+        lang: "Liquid",
+        body: `{% if blog.handle == 'voice' %}
+<!-- ▼ お客様の声のみ -->
+<div class="article-metafields flex">
+  {% if article.metafields.custom.kyoshiki %}
+  <div class="metafield-item">
+    <strong>挙式日：</strong>
+    {{ article.metafields.custom.kyoshiki | date: "%Y年%m月%d日" }}
+  </div>
+  {% endif %}
+
+  {% if article.metafields.custom.couple_name %}
+  <div class="metafield-item">
+    <strong>お客様名：</strong>
+    {{ article.metafields.custom.couple_name }}
+  </div>
+  {% endif %}
+</div>
+<!-- ▲ お客様の声のみ -->
+{% endif %}`
+      }
+    ],
     thumb: "assets/images/works/cinematic.jpg"
   },
   {
