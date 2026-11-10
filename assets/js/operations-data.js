@@ -56,6 +56,76 @@ const OPERATIONS = [
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Claude Code"],
     thumb: "assets/images/works/sakubuncafe.jpg",
     workId: "sakubuncafe"
+  },
+  {
+    id: "yonetsubo",
+    title: "ヨネツボ名古屋行政書士事務所",
+    catLabel: "運用",
+    role: "単独",
+    period: "2025年1月〜2026年9月",
+    url: "https://yonetsubo758.jp/",
+    summary: "交通事故の後遺障害の申請を支援する行政書士事務所のサイト。公開済みのサイトのテーマ更新を、約1年8か月にわたって一人で担当しました。",
+    description: "交通事故による後遺障害の申請を支援する、ヨネツボ名古屋行政書士事務所のWordPressサイトです。公開済みのサイトの運用として、2025年1月から2026年9月まで、テーマの更新を一人で受け持ちました。この間のテーマへのコミットは、マージを除いてすべて私のものです。実績や料金の内容更新に加え、表示の不具合はWordPress本体の処理までたどって原因を特定し、修正前のファイルを控えに残してから直しています。主な対応は次のとおりです。",
+    updates: [
+      "YouTube動画を画面に近づいたときだけ読み込むようにし、ページの表示を軽くしました。",
+      "実績ページに2025年度の認定率のデータと比較図、推移グラフを追加し、表を画像のグラフに置き換えました。",
+      "費用ページを、料金表中心から文章と画像中心の構成に組み直しました。",
+      "スマートフォンでだけ費用ページの画像が表示されない不具合について、WordPressが属性内のショートコードを展開しない仕様が原因だと突き止めて修正しました。",
+      "事例集のダウンロードページと完了ページを追加し、スマートフォン版とパソコン版の資料を選べるようにしました。",
+      "知恵袋ページの事例を開閉式のQ&Aにまとめ、重複していた動画を整理しました。",
+      "未認定ページのCSSと、事例タブの出力処理をテンプレートの外に切り出し、ページごとに書かれていたスタイルを整理しました。",
+      "セミナー・相談会のお知らせ一覧で、表示件数とページ送りが合っていなかった点を直し、使われていない処理を削除しました。",
+      "ヘッダー・フッターからInstagramを外し、お問い合わせページの文言と電話番号の表示を更新しました。"
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "jQuery", "WordPress", "PHP", "Claude Code"],
+    code: [
+      {
+        title: "YouTube動画を、画面に近づいたときだけ読み込む",
+        problem: "1つのページに複数のYouTube動画を埋め込んでおり、ページを開いた時点ですべての動画の読み込みが始まって、表示が重くなっていました。",
+        approach: "動画のURLをいったん別の属性に退避し、画面の200px手前まで来たときに読み込ませるようにしました。読み込んだ動画は監視の対象から外しています。",
+        lang: "JavaScript",
+        body: `//YouTube動画の読み込み速度アップ
+document.addEventListener("DOMContentLoaded", function () {
+  let iframes = document.querySelectorAll("iframe.youtube-lazyload");
+  const loadIframe = (iframe) => {
+    iframe.src = iframe.getAttribute("data-src");
+    iframe.removeAttribute("data-src"); // 不要になった属性を削除
+  };
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // 画面内に入ったら
+          loadIframe(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "200px" }
+  ); // 200px手前で読み込む
+  iframes.forEach((iframe) => observer.observe(iframe));
+});`
+      },
+      {
+        title: "スマートフォンでだけ画像が出ない不具合を、WordPress本体の処理までたどって直す",
+        problem: "費用ページの画像が、パソコンでは表示されるのに、スマートフォンでだけ表示されませんでした。",
+        approach: "スマートフォン用の画像のURLに書いたショートコードが展開されず、存在しないパスになっていたのが原因でした。WordPressは属性の中のショートコードを、許可された要素のときだけ展開します。picture と source は許可されていないため、そのまま出力されていました（wp-includes/shortcodes.php で確認）。ショートコードを使わないパスに直し、切り替えの幅もテーマのCSS・JavaScriptと同じ750pxにそろえています。",
+        lang: "HTML（修正前 → 修正後）",
+        body: `<!-- 修正前：source の srcset に書いたショートコードが展開されず、SPだけ404 -->
+<picture>
+  <source srcset="[hurl]/wp-content/uploads/2022/06/fee_sp.png" media="(max-width:767px)" />
+  <img src="[hurl]/wp-content/themes/theme/images/module/fee_pc.png" class="switch" alt=""
+    style="visibility: visible;">
+</picture>
+
+<!-- 修正後：ショートコードを使わないパスにし、切替幅をテーマ全体の750pxにそろえる -->
+<picture>
+  <source srcset="/wp-content/uploads/2022/06/fee_sp.png" media="(max-width:750px)" />
+  <img src="[theme]/images/module/fee_pc.png" alt="">
+</picture>`
+      }
+    ],
+    thumb: "assets/images/works/yonetsubo.jpg"
   }
 ];
 

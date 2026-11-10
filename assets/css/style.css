@@ -665,6 +665,32 @@ h1, h2, h3 { line-height: 1.4; font-weight: 700; margin: 0; }
 .detail__note { font-family: "Noto Sans JP", sans-serif; font-size: 0.88rem; color: var(--muted); margin: -0.4rem 0 1.4rem; }
 .detail__note a { color: var(--accent); font-weight: 700; }
 
+/* 実績詳細：コードと設計の工夫 */
+.code-cases { margin-top: clamp(40px, 7vw, 72px); font-family: "Noto Sans JP", sans-serif; }
+.code-cases__title { font-size: clamp(1.25rem, 3.5vw, 1.6rem); }
+.code-cases__note { margin: 0.5rem 0 0; color: var(--muted); font-size: 0.85rem; }
+.code-case {
+  margin-top: 1.6rem; padding: clamp(1.1rem, 3vw, 1.6rem);
+  border: 1px solid var(--line); border-top: 4px solid var(--accent-light); border-radius: var(--r);
+  background: var(--base); box-shadow: var(--shadow);
+}
+.code-case__title { font-size: 1.05rem; }
+.code-case__points { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1rem; margin: 0.9rem 0 1.1rem; }
+.code-case__points dt { color: var(--muted); font-size: 0.85rem; font-weight: 700; }
+.code-case__points dd { margin: 0; font-size: 0.92rem; }
+.code-case__code { border-radius: var(--r-sm); overflow: hidden; background: #1f2a24; }
+.code-case__lang {
+  margin: 0; padding: 0.4rem 1rem; color: #cfe3d6;
+  font-family: "Inter", sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.code-case__code pre {
+  margin: 0; padding: 1rem; overflow-x: auto;
+  color: #eef5f0; font-size: 0.8rem; line-height: 1.7;
+  font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+}
+.code-case__code code { font-family: inherit; }
+
 .effort {
   margin: 0 0 1.8rem; padding: clamp(1.1rem, 3vw, 1.5rem);
   border: 1px solid var(--line); border-radius: var(--r);

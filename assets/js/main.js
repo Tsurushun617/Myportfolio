@@ -161,10 +161,34 @@
             サイトを見る
           </a>
         </div>
-      </div>`;
+      </div>
+      ${codeHTML(item.code)}`;
   }
 
   /* ---------- 詳細の描画 ---------- */
+  /* ---------- コードと設計の工夫（実装の抜粋） ---------- */
+  function codeHTML(list) {
+    if (!list || !list.length) return "";
+    const items = list.map((c) => `
+      <article class="code-case">
+        <h3 class="code-case__title">${esc(c.title)}</h3>
+        <dl class="code-case__points">
+          <dt>悩み</dt><dd>${esc(c.problem)}</dd>
+          <dt>工夫</dt><dd>${esc(c.approach)}</dd>
+        </dl>
+        <div class="code-case__code">
+          <p class="code-case__lang">${esc(c.lang)}</p>
+          <pre tabindex="0"><code>${esc(c.body)}</code></pre>
+        </div>
+      </article>`).join("");
+    return `
+      <section class="code-cases" aria-labelledby="code-cases-title">
+        <h2 class="code-cases__title" id="code-cases-title">コードと設計の工夫</h2>
+        <p class="code-cases__note">実際に書いたコードの抜粋です。掲載にあたり、関数名やページ名、一部のコメントを匿名化しています。</p>
+        ${items}
+      </section>`;
+  }
+
   function renderDetail() {
     const root = $("[data-work-detail]");
     if (!root || typeof WORKS === "undefined") return;
@@ -202,7 +226,8 @@
             サイトを見る
           </a>
         </div>
-      </div>`;
+      </div>
+      ${codeHTML(w.code)}`;
   }
 
   /* ---------- モバイルナビ ---------- */

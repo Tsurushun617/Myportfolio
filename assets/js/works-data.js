@@ -34,6 +34,139 @@ const WORKS = [
     summary: "既存の組合サイトへ人材募集セクションを追加。トップ・下層6ページ・バナー3種を、Claude Codeを使って単独で実装しました。",
     description: "東京ニットファッション工業組合（TKF）の既存WordPressサイトに、人材募集セクションを追加しました。人材募集トップ（ヒーロー、仕事紹介、インタビュー、研修制度、職場環境の取り組み、募集企業、CTA）に加え、インタビュー・職場環境・募集企業の一覧と詳細、計6つの下層ページ、バナー3種を既存テーマへ組み込んでいます。記事詳細はコラムモジュール（3列グリッド、タグ、ページ送り、目次の自動生成）として実装し、グローバルナビの導線も人材募集へ差し替えました。ランドマークや表の見出し、代替テキストなどのアクセシビリティ対応と、デザインカンプとの表示差分の修正、社内チェックバック対応まで、Claude Codeを活用して単独で進めています。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Claude Code"],
+    code: [
+      {
+        title: "記事の見出しから、目次を自動で作る",
+        problem: "記事ごとに目次を手で入力すると、見出しを直したときに目次の直し忘れが起き、リンク先もずれます。",
+        approach: "編集者が入力した見出しの行だけを順に拾い、目次の項目とリンク先のIDを自動で作るようにしました。本文側と番号の付け方をそろえる必要がある点は、コメントに残しています。",
+        lang: "PHP",
+        body: `/*
+ * 本文モジュールの見出しを拾って目次の項目配列を返す(自動生成用)
+ *
+ * カスタムフィールドの「見出し」行だけを見ている。
+ * 本文欄の中に直接書かれた見出しは拾えない。
+ * 拾うにはHTMLのパースが要るため、必要になった時点で別途対応する。
+ *
+ * 戻り値: array( array( 'level' => 1|2, 'text' => '...', 'anchor' => 'toc-1' ), ... )
+ *   level 1 = h2(数字の項目) / level 2 = h3(英小文字の項目)。
+ *   h4 以下はデザインの目次に階層が無いため拾わない。
+ */
+function article_collect_headings( $post_id ) {
+  $items = array();
+  if ( ! function_exists( 'have_rows' ) || ! have_rows( 'blog_module', $post_id ) ) {
+    return $items;
+  }
+  $index = 0;
+  while ( have_rows( 'blog_module', $post_id ) ) {
+    the_row();
+    if ( get_row_layout() !== 'blog_mod_title' ) {
+      continue;
+    }
+    $index++;
+    $text = get_sub_field( 'blog_mod_title' );
+    $tag  = get_sub_field( 'blog_mod_class' );
+    if ( ! $text ) {
+      continue;
+    }
+    if ( 'h2' === $tag ) {
+      $level = 1;
+    } elseif ( 'h3' === $tag ) {
+      $level = 2;
+    } else {
+      continue; // h4 以下は目次に出さない
+    }
+    $items[] = array(
+      'level'  => $level,
+      'text'   => $text,
+      'anchor' => article_heading_id( $index ),
+    );
+  }
+  return $items;
+}`
+      },
+      {
+        title: "入れ子の目次を、正しいHTMLで出力する",
+        problem: "大項目と小項目のある目次は、小項目のリストを置く位置を誤ると不正なHTMLになります。また、未入力の項目から、行き先のない空リンクが出ていました。",
+        approach: "小項目のリストは直前の大項目の中に入れ、開いたタグを変数で管理して必ず閉じるようにしました。カスタムフィールドが未入力のときに返る値の違いも確かめ、空リンクが出ないようにしています。",
+        lang: "PHP",
+        body: `function article_render_toc( $items ) {
+  if ( empty( $items ) ) {
+    return;
+  }
+  // 小項目の ol は「直前の li の中」に入れる。li の兄弟として置くと不正なHTMLになるため。
+  $open_child = false; // 小項目の ol を開いているか
+  $open_item  = false; // 大項目の li を開いたままにしているか
+  echo '<div class="toc">';
+  echo '<p class="toc_title">目次</p>';
+  echo '<ol class="toc_list">';
+  foreach ( $items as $item ) {
+    $level = ( isset( $item['level'] ) && 2 === (int) $item['level'] ) ? 2 : 1;
+    // フィールドが存在しない場合、取得関数は null ではなく false を返す。
+    // 素通しすると '' !== false が真になり、href="#" の空リンクが生える。
+    // 文字列でないものはすべて「未入力」として扱う。
+    $text   = ( isset( $item['text'] ) && is_string( $item['text'] ) ) ? $item['text'] : '';
+    $anchor = ( isset( $item['anchor'] ) && is_string( $item['anchor'] ) ) ? $item['anchor'] : '';
+    if ( '' === $text ) {
+      continue;
+    }
+    $label = ( '' !== $anchor )
+      ? '<a href="#' . esc_attr( $anchor ) . '">' . esc_html( $text ) . '</a>'
+      : esc_html( $text );
+
+    if ( 1 === $level ) {
+      if ( $open_child ) { echo '</ol>'; $open_child = false; }
+      if ( $open_item )  { echo '</li>'; $open_item  = false; }
+      echo '<li class="toc_item">' . $label;
+      $open_item = true;
+      continue;
+    }
+
+    // 小項目。大項目より先に小項目が来た場合に備えて、親の li が無ければ空で開く
+    if ( ! $open_child ) {
+      if ( ! $open_item ) {
+        echo '<li class="toc_item">';
+        $open_item = true;
+      }
+      echo '<ol class="toc_list-child">';
+      $open_child = true;
+    }
+    echo '<li class="toc_item">' . $label . '</li>';
+  }
+  if ( $open_child ) {
+    echo '</ol>';
+  }
+  if ( $open_item ) {
+    echo '</li>';
+  }
+  echo '</ol>';
+  echo '</div>';
+}`
+      },
+      {
+        title: "表の見出しセルに、列と行のどちらの見出しかを明示する",
+        problem: "見出し行と、各行の左端の見出しが同時にある表では、読み上げソフトがどのセルの見出しなのかを判断しにくくなります。",
+        approach: "見出しセルに scope 属性を付け、列の見出しか行の見出しかを明示しました。理由はコード内のコメントに残しています。",
+        lang: "PHP / HTML",
+        body: `<table class="<?php echo $table_class; ?>">
+  <?php // scope="col"/"row" は、見出し行(thead)と各行左端のth(行見出し)が
+        // 同時に存在する二次元の表になりうるため、どちらの見出しか明示して紐付ける ?>
+  <?php if ( $has_head ) : ?>
+  <thead>
+    <tr class="head">
+      <th scope="col"><?php echo $th01 ? $th01 : '&nbsp;'; ?></th>
+      <th scope="col"><?php echo $th02 ? $th02 : '&nbsp;'; ?></th>
+    </tr>
+  </thead>
+  <?php endif; ?>
+  <?php foreach ( $rows as $row ) : ?>
+  <tr>
+    <th scope="row"><?php echo $row['td01']; ?></th>
+    <td><?php echo $row['td02']; ?></td>
+  </tr>
+  <?php endforeach; ?>
+</table>`
+      }
+    ],
     thumb: "assets/images/works/tkf.jpg"
   },
   {
@@ -43,8 +176,8 @@ const WORKS = [
     catLabel: "Webサイト",
     role: "単独制作",
     url: "https://arusen.com/",
-    summary: "独自技術で機能性素材を開発する株式会社アルセンのコーポレートサイト。Figma MCP × Claude Code を活用し、単独制作・5営業日で納品しました。",
-    description: "「独自技術の融複合で、新たな製品価値を作る」を掲げる株式会社アルセンのコーポレートサイト。「暗所イオン触媒」「スマート繊維 IoniQue-EX」「真軸インソール／Magic Insole」という3つのコア技術と研究開発のエビデンスを整理し、アパレル・寝具・フットウェアなどのメーカーからOEM・共同開発の相談につながる導線を設計しました。Figma MCPでデザインカンプから実装値を直接取得し、Claude Codeによる実装・検証を組み合わせることで、単独制作でありながら5営業日での納品を実現しています。",
+    summary: "独自技術で機能性素材を開発する株式会社アルセンのコーポレートサイト。Figma MCP × Claude Code を活用し、単独で制作しました。",
+    description: "「独自技術の融複合で、新たな製品価値を作る」を掲げる株式会社アルセンのコーポレートサイト。「暗所イオン触媒」「スマート繊維 IoniQue-EX」「真軸インソール／Magic Insole」という3つのコア技術と研究開発のエビデンスを整理し、アパレル・寝具・フットウェアなどのメーカーからOEM・共同開発の相談につながる導線を設計しました。Figma MCPでデザインカンプから実装値を直接取得し、Claude Codeによる実装・検証を組み合わせています。実装からチェックバック4巡の反映、公開準備までを単独で進めました（第1弾：2026年7月10日〜8月18日、コミットのあった日は10日）。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP", "Figma MCP", "Claude Code"],
     tracking: [
       { name: "Google Analytics", work: "設置・初期設定" },
@@ -58,9 +191,127 @@ const WORKS = [
       notes: [
         "対象範囲：TOP・会社概要・開発ストーリー・暗所イオン触媒・OEM・よくある質問・ニュース・コラム・お問い合わせ・英語版会社概要など、公開済みの範囲。",
         "想定工数は、ページ別のコーディング工数に、環境構築・画像処理・モジュール設計・CMS設定・公開作業・修正対応の共通作業を加えた54〜67hの中央値。",
-        "Claude Code 活用時の工数は、作業ログの稼働時間と作業日数（計17日）から算出。構造化データ（AIO）対応や設計ドキュメントの整備など、想定工数に含まない作業も含みます。"
+        "Claude Code 活用時の工数は、作業ログの稼働時間と作業日数（第1弾10日・第2弾7日の計17日）から算出。構造化データ（AIO）対応や設計ドキュメントの整備など、想定工数に含まない作業も含みます。"
       ]
     },
+    code: [
+      {
+        title: "段階公開のリンクの出し分けを、配列1か所で管理する",
+        problem: "サイトを段階的に公開するため、先行公開の時点ではリンク先の多くがまだ存在しません。リンクを個別にコメントアウトすると7ファイルに散らばり、公開時に戻し漏れが起きます。",
+        approach: "公開済みページのスラッグを1つの配列にまとめ、リンクを出す側はすべてこの判定を通すようにしました。公開するときは配列に1行足すだけで、テンプレートには触りません。",
+        lang: "PHP",
+        body: `// 公開済み（＝リンクを出してよい）ページのスラッグ。
+// 公開する段になったら、ここに1行足す。それだけで
+// ヘッダー・フッター・CTA・本文のリンクが一斉に切り替わる。
+function theme_published_slugs(): array
+{
+  return array(
+    'about',
+    'contact',
+    'privacy',
+    // 'service-a', // 次回公開
+  );
+}
+
+// そのページを公開しているか
+// 関数名に接頭辞を付けているのは、is_published のような一般的な名前が
+// 他のプラグインと衝突しうるため
+function theme_is_published(string $slug): bool
+{
+  return in_array($slug, theme_published_slugs(), true);
+}
+
+// 本文中のリンク。未公開のページなら、リンクにせず文字だけを残す
+// 沿革の文章のように、リンクが消えても文として成立する箇所で使う
+function theme_published_link(string $slug, string $text, string $class = ''): string
+{
+  if (!theme_is_published($slug)) {
+    return esc_html($text);
+  }
+
+  $attr = $class !== '' ? ' class="' . esc_attr($class) . '"' : '';
+  return '<a href="' . esc_url(home_url('/' . $slug . '/')) . '"' . $attr . '>' . esc_html($text) . '</a>';
+}`
+      },
+      {
+        title: "よくある質問を、担当者が管理画面だけで更新できる部品にする",
+        problem: "同じ質問を複数のページに載せる必要があり、ページごとに並び順も違います。テンプレートに直接書くと、質問を1つ直すたびにエンジニアの作業が発生します。",
+        approach: "質問をカスタム投稿にし、カテゴリを渡すだけで呼び出せる共通部品にしました。担当者が触るのは質問と回答の中身だけです。ページごとの並び順は、専用のカスタムフィールドで持たせています。",
+        lang: "PHP",
+        body: `// よくある質問のアコーディオン（投稿タイプ faq）
+//
+// $args['cat']        : 出力するカテゴリのスラッグ
+// $args['order_meta'] : ページごとの並び順を持たせるカスタムフィールド名（任意）
+//
+// FAQを載せるページが増えたときは、管理画面でカテゴリを1件足し、
+// そのページのテンプレートでこの部品を1行呼ぶだけでよい。
+//
+// 同じ質問を複数ページに出すため、1つの投稿に複数のカテゴリを付けている。
+// ところが「順序」欄（menu_order）は投稿につき1つしか持てず、
+// ページごとに別の並びにできない。そこで専用のカスタムフィールドで並びを持たせる
+$cat        = isset($args['cat']) ? $args['cat'] : '';
+$order_meta = isset($args['order_meta']) ? $args['order_meta'] : '';
+if (!$cat) {
+  return;
+}
+
+$faq_args = array(
+  'post_type'      => 'faq',
+  'posts_per_page' => -1,
+  'order'          => 'ASC',
+  'tax_query'      => array(
+    array(
+      'taxonomy' => 'faq_cat',
+      'field'    => 'slug',
+      'terms'    => $cat,
+    ),
+  ),
+);
+
+if ($order_meta) {
+  // ページ専用の並び順。値が入っていない投稿は末尾に回す
+  $faq_args['meta_key'] = $order_meta;
+  $faq_args['orderby']  = array('meta_value_num' => 'ASC', 'menu_order' => 'ASC');
+} else {
+  // 「順序」欄で並べる。管理画面で数値を入れ替えれば表示順が変わる
+  $faq_args['orderby'] = 'menu_order';
+}`
+      },
+      {
+        title: "最終更新日を、投稿とテンプレートの新しいほうから自動で出す",
+        problem: "固定ページの本文をテンプレートに書いている場合、テンプレートを直しても管理画面の更新日は変わりません。手で日付を書くと、直し忘れが起きます。",
+        approach: "投稿の更新日時とテンプレートファイルの更新日時を比べ、新しいほうを出力する関数にしました。検索エンジンやAIが読めるよう、機械可読の日付も time 要素に持たせています。",
+        lang: "PHP",
+        body: `// $template_file : 対象テンプレートのパス。呼び出し側から __FILE__ を渡す
+// 戻り値 : Unixタイムスタンプ。どちらも取れなければ 0
+function get_last_updated_time(string $template_file = ''): int
+{
+  $times = array();
+
+  $post_modified = get_post_modified_time('U', true); // GMT基準
+  if ($post_modified) {
+    $times[] = (int) $post_modified;
+  }
+
+  if ($template_file !== '' && file_exists($template_file)) {
+    $times[] = (int) filemtime($template_file);
+  }
+
+  return $times ? max($times) : 0;
+}
+
+// 最終更新日を <time> 要素で出力する
+// datetime 属性は機械可読用。表示用の書式とは別に持たせる
+function the_last_updated(string $template_file = '', string $format = 'Y/m/d'): void
+{
+  $time = get_last_updated_time($template_file);
+  if (!$time) {
+    return;
+  }
+  echo '<time datetime="' . esc_attr(wp_date('Y-m-d', $time)) . '">' . esc_html(wp_date($format, $time)) . '</time>';
+}`
+      }
+    ],
     thumb: "assets/images/works/arusen.jpg"
   },
   {
@@ -68,11 +319,95 @@ const WORKS = [
     title: "あおぞら作文教室",
     category: "website",
     catLabel: "Webサイト",
-    role: "チーム制作",
+    role: "チーム制作（メイン担当）",
     url: "https://sakubuncafe.com/",
-    summary: "子どもの「書く力」と自己肯定感を育てる作文教室のサイト。教室の理念とあたたかい世界観を表現。",
-    description: "子ども向け作文教室のコーポレートサイト。「遊びの中に学びがある」という教室の教育理念を、やわらかいトーンのデザインで表現しました。チームでの共同制作。",
-    tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
+    summary: "都内5校舎とオンラインで作文を指導する教室のサイト。チーム制作のなかでメインの実装を担当し、クラス・講師・教室・コラムの仕組みを作りました。",
+    description: "小学1年生から高校3年生まで、都内5校舎とオンラインで作文を指導するあおぞら作文教室のWebサイトです。土台のテーマを別のメンバーが用意したあと、2025年11月から2026年9月まで、私がメインで実装を担当しました。現在のテーマのPHP・JavaScript・Sassのうち、約54%の行が私のコミットによるものです（git blame で集計）。教室側が管理画面で更新できるよう、クラスはカスタム投稿として一覧・詳細・カテゴリ別のページを作り、講師紹介と5校の教室詳細ページは同じ講師カードを共用する形にそろえました。資料ダウンロードのページ、コラムの一覧・カテゴリ別一覧・詳細ページも新設し、コラムはディレクターが管理画面から投稿できるよう、手順と表示ルールをまとめた仕様書も残しています。",
+    tech: ["HTML", "CSS / Sass", "JavaScript", "WordPress", "PHP", "ACF", "Claude Code"],
+    code: [
+      {
+        title: "画面幅とUser-Agentのずれで崩れるカルーセルを、判定をそろえて直す",
+        problem: "スマートフォン幅で見ると、担当講師のカルーセルが崩れることがありました。カルーセルを動かす処理は画面幅で判定していた一方、そのCSSはUser-Agent（端末の種類）で読み込みを分けていたため、「画面は狭いが端末はパソコン」と判定される環境で、CSSだけが読み込まれない状態になっていました。",
+        approach: "CSSの読み込みを、JavaScriptと同じ画面幅の条件（750px以下）にそろえました。原因と、なぜこの判定にしたかをコメントに残しています。",
+        lang: "PHP",
+        body: `// swiper.css は User-Agent（wp_is_mobile）ではなく画面幅で読み込む。
+// Swiper の起動判定は js/common.js の matchMedia("(max-width: 750px)") ＝画面幅であり、
+// CSS を UA で出し分けると「画面は狭いが UA はデスクトップ」の環境（DevTools 等）で
+// Swiper だけ起動して CSS が無い状態になり、担当講師カルーセルが崩れる。
+// media 属性を JS と同じブレークポイントに揃え、UA に依存せず整合させる。
+echo '<link rel="stylesheet" media="(max-width: 750px)" href="' . get_template_directory_uri() . '/css/swiper.css?' . date('ymd-Hi') . '">' . "\\n";`
+      },
+      {
+        title: "ページ内リンクで開いたときだけ崩れるカルーセルを、原因から直す",
+        problem: "講師紹介ページを、特定の講師へのリンク（/teacher#講師名）で開くとカードが端に寄り、矢印が枠の外に消えていました。再読み込みすると直るため、原因が分かりにくい不具合でした。",
+        approach: "ブラウザがリンク先を見せようとして、カルーセルの枠そのものを横にスクロールさせていることを突き止めました。そのずれを打ち消し、目的の講師まではカルーセル側の機能で移動させています。画像の読み込みあとに再びずれる場合にも備えました。",
+        lang: "JavaScript",
+        body: `// アンカー付きURL（例: /teacher#teacher-a）で遷移すると、ブラウザは
+// 対象要素を見せるために overflow:hidden のswiperコンテナ自体を
+// 横スクロール（scrollLeft）させる。SwiperはこのscrollLeftを関知しないため
+// transformと二重にずれ、カードが端に寄り矢印が枠外に消える崩れが起きる
+// （リロードで直るのは、再読込時はアンカーへの再スクロールが行われないため）。
+// scrollLeftをリセットし、対象スライドへはSwiperのAPIで正しく移動する。
+container.scrollLeft = 0;
+if (location.hash) {
+  const hashId = location.hash.slice(1);
+  const realSlides = Array.from(container.querySelectorAll(".swiper-slide")).filter(
+    (slide) => !slide.classList.contains("swiper-slide-duplicate")
+  );
+  const hashIndex = realSlides.findIndex((slide) => slide.id === hashId);
+  if (hashIndex !== -1) {
+    swiperInstance.slideToLoop(hashIndex, 0);
+  }
+}
+
+// 画像の遅延読み込み等で読み込み完了時にブラウザがアンカー位置へ再スクロールし、
+// swiperコンテナのscrollLeftが再び汚れる場合に備えて、loadでも解除する
+$(window).on("load", function () {
+  document.querySelectorAll(".swiper-container").forEach(function (container) {
+    container.scrollLeft = 0;
+  });
+});`
+      },
+      {
+        title: "トップのメインビジュアルを、ライブラリなしのフェード切り替えにする",
+        problem: "トップのメインビジュアルを、動画から画像4点の切り替えに変えることになりました。スライダーのライブラリを足すと、そのぶん読み込みが重くなります。",
+        approach: "クラス名を付け替えるだけの短い処理にし、切り替えの動きはCSSに任せました。1枚目の画像だけ優先して読み込ませ、表示が遅れないようにしています。",
+        lang: "JavaScript",
+        body: `(function () {
+  var items = document.querySelectorAll(".mv-slide__item");
+  if (items.length < 2) return;
+  var INTERVAL = 5000;
+  var current = 0;
+  var prev = -1;
+  setInterval(function () {
+    if (prev >= 0) items[prev].classList.remove("is-prev");
+    items[current].classList.remove("is-active");
+    items[current].classList.add("is-prev");
+    prev = current;
+    current = (current + 1) % items.length;
+    items[current].classList.add("is-active");
+  }, INTERVAL);
+})();`
+      },
+      {
+        title: "コラム一覧の件数と並び順を、テンプレートの外で決める",
+        problem: "コラムの一覧とカテゴリ別一覧で、表示件数と並び順をそろえる必要がありました。テンプレートごとに検索条件を書くと、片方だけ直し忘れが起きます。",
+        approach: "WordPressが記事を取りに行く直前に条件を差し込み、一覧とカテゴリ別一覧の両方に同じ条件が効くようにしました。管理画面の一覧には影響しないようにしています。",
+        lang: "PHP",
+        body: `function column_archive_query($query) {
+  if (is_admin() || !$query->is_main_query()) {
+    return;
+  }
+  if (!is_post_type_archive('column') && !is_tax('column_cat')) {
+    return;
+  }
+  $query->set('posts_per_page', 9);
+  $query->set('orderby', 'date');
+  $query->set('order', 'DESC');
+}
+add_action('pre_get_posts', 'column_archive_query');`
+      }
+    ],
     thumb: "assets/images/works/sakubuncafe.jpg"
   },
   {
@@ -99,6 +434,102 @@ const WORKS = [
     description: "墨田区スカイツリー近くの地域密着型整備工場のコーポレートサイト。車検・修理・板金塗装・保険・車両販売という幅広いサービスを、来店前のユーザーが迷わず辿れる導線設計で構成しました。デザインカンプの再現からCMS実装まで一人で担当。",
     tech: ["HTML", "CSS / SCSS", "JavaScript", "WordPress", "PHP"],
     tracking: ANALYTICS_SETUP,
+    code: [
+      {
+        title: "本文の見出しに、デザイン用のクラスと囲みを自動で付ける",
+        problem: "担当者が管理画面で記事を書くとき、見出しにクラス名を手で書いてもらうのは現実的ではありません。書き忘れると、デザインが崩れます。",
+        approach: "本文を出力する直前に、見出しタグへクラスを自動で付けるようにしました。担当者はエディタで見出しを選ぶだけです。すでにクラスがある見出しには、追記する形にしています。",
+        lang: "PHP",
+        body: String.raw`/**
+ * 本文内のh2〜h6タグに指定クラスを自動付与
+ * h2タグをhgroupで囲む
+ */
+function add_heading_class_to_content($content) {
+  $replacements = [
+    'h2' => 'h2default',
+    'h3' => 'h3second',
+    'h4' => 'h4default',
+    'h5' => 'h5default',
+    'h6' => 'h6default',
+  ];
+
+  // h2タグをhgroupで囲む処理
+  $content = preg_replace_callback(
+    '/<h2([^>]*)>(.*?)<\/h2>/is',
+    function($matches) {
+      $h2_attributes = $matches[1];
+      $h2_content = $matches[2];
+
+      // h2タグにクラスを付与
+      if (strpos($h2_attributes, 'class=') !== false) {
+        $h2_tag = preg_replace('/class=["\\\']([^"\\\']*)["\\\']/', 'class="$1 h2default"', '<h2'.$h2_attributes.'>');
+      } else {
+        $h2_tag = '<h2 class="h2default"'.$h2_attributes.'>';
+      }
+
+      // hgroupで囲む
+      return '<hgroup class="hgroup">'.$h2_tag.$h2_content.'</h2></hgroup>';
+    },
+    $content
+  );
+
+  // h3〜h6タグのクラス付与
+  foreach ($replacements as $tag => $class) {
+    if ($tag === 'h2') continue; // h2は既に処理済み
+    $content = preg_replace_callback(
+      '/<'.$tag.'([^>]*)>/i',
+      function($matches) use ($class, $tag) {
+        if (strpos($matches[1], 'class=') !== false) {
+          // すでにclassがある場合はクラス名を追記
+          return preg_replace('/class=["\\\']([^"\\\']*)["\\\']/', 'class="$1 '.$class.'"', '<'.$tag.$matches[1].'>');
+        } else {
+          // classがなければ新規で付与
+          return '<'.$tag.' class="'.$class.'"'.$matches[1].'>';
+        }
+      },
+      $content
+    );
+  }
+  return $content;
+}
+add_filter('the_content', 'add_heading_class_to_content');`
+      },
+      {
+        title: "画像を、短い書き方で本文に入れられるようにする",
+        problem: "固定ページの本文に画像のURLを直接書くと、テスト環境と本番でパスが変わったときに画像が切れます。URLが長く、担当者には書きにくいという問題もありました。",
+        approach: "ファイル名と説明文を書くだけで画像タグを出すショートコードにしました。保存場所はテーマ側で組み立てるので、環境が変わっても切れません。使い方は、非エンジニアの担当者にも読める言葉でコメントに書いています。",
+        lang: "PHP",
+        body: `// テーマ画像出力用ショートコード（汎用版）
+// [themeimg file="パス/ファイル名.jpg" alt="説明"] のように使うと、
+// テーマの images フォルダ内の好きな場所の画像を簡単に表示できる仕組みです。
+// たとえば [themeimg file="service/photo1.jpg" alt="作業中の写真"] と書くと、
+// <img src=".../images/service/photo1.jpg" alt="作業中の写真"> という画像タグが自動で作られます。
+function shortcode_themeimg($atts) {
+    // ショートコードで指定された値を受け取る。なければ空文字になる。
+    $a = shortcode_atts([
+        'file' => '',      // imagesフォルダからのパス（例: service/photo1.jpg）
+        'alt' => '',       // 画像の説明文（alt属性）
+        'class' => '',     // 画像に付けるクラス名（任意）
+        'width' => '',     // 画像の幅（任意）
+        'height' => ''     // 画像の高さ（任意）
+    ], $atts);
+
+    // ファイル名が指定されていなければ何も表示しない
+    if (empty($a['file'])) return '';
+
+    // 画像のURLを作る（テーマのimages/の中を自動で探す）
+    $src = get_template_directory_uri() . '/images/' . ltrim($a['file'], '/');
+    $alt = esc_attr($a['alt']);
+    $class = $a['class'] ? ' class="' . esc_attr($a['class']) . '"' : '';
+    $width = $a['width'] ? ' width="' . esc_attr($a['width']) . '"' : '';
+    $height = $a['height'] ? ' height="' . esc_attr($a['height']) . '"' : '';
+
+    // 完成した<img>タグを返す
+    return '<img src="' . esc_url($src) . '"' . $class . $width . $height . ' alt="' . $alt . '" />';
+}
+add_shortcode('themeimg', 'shortcode_themeimg');`
+      }
+    ],
     thumb: "assets/images/works/matsuda-motors.jpg"
   },
   {
